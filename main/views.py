@@ -13,6 +13,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.decorators.http import require_GET
 from allauth.account.views import SignupView
 from django.urls import reverse
+import os
 
 
 from django.db import transaction, IntegrityError
