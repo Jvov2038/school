@@ -1,0 +1,48 @@
+{% extends "school/base_one.html" %}
+{% block title %}
+    Завершение регистрации
+{% endblock title %}
+{% block content %}
+
+<!-- ================ start banner area ================= -->
+<section class="blog-banner-area" id="category">
+    <div class="container h-100">
+        <div class="blog-banner">
+            <div class="text-center">
+                <h1>Завершение регистрации</h1>
+                <nav aria-label="breadcrumb" class="banner-breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{% url 'index' %}">Домой</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Завершение регистрации</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ================ end banner area ================= -->
+
+<!--================Form Area =================-->
+<section class="login_box_area section-margin">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="login_form_inner register_form_inner">
+                    <form class="row login_form" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="col-md-12 form-group p_star">
+                            {{ form.as_p }}
+                        </div>
+                        <div class="col-md-12 form-group p_star">
+                            <button type="submit" class="button cart_button_checkout">
+                                Сохранить
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--================End Form Area =================-->
+{% endblock content %}

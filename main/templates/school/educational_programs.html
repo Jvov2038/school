@@ -1,0 +1,281 @@
+{% extends 'school/base_one.html' %}
+{% load static %}
+{% load webp %}
+
+
+{% block description %}
+
+Образовательные программы ГБОУ "Вершина" и Регионального модельного центра
+
+{% endblock %}
+
+{% block title %}
+
+Образовательные программы
+
+{% endblock %}
+
+{% block content %}
+
+	<!-- ================ start banner area ================= -->
+	<section class="blog-banner-area" id="blog">
+		<div class="container h-100">
+			<div class="blog-banner">
+				<div class="text-center">
+					<h1>{{ program.title }}</h1>
+					<nav aria-label="breadcrumb" class="banner-breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="{% url 'index' %}">Домой</a></li>
+	          <li class="breadcrumb-item active" aria-current="page">Образовательные программы</li>
+            </ol>
+          </nav>
+				</div>
+			</div>
+    </div>
+	</section>
+	<!-- ================ end banner area ================= -->
+
+
+	<!-- Deals of the week -->
+
+	<div class="deals_featured">
+		<div class="container">
+			<div class="row">
+				<div class="col d-flex flex-lg-row flex-column align-items-center justify-content-start">
+					
+					<!-- Deals -->
+
+					<div class="deals">
+						<div class="deals_title">Образовательные программы</div>
+						<div class="deals_slider_container">
+							
+							<!-- Deals Slider -->
+							<div class="owl-carousel owl-theme deals_slider">
+								{% for p in view.program_last6 %}
+								<!-- Deals Item -->
+								<div class="owl-item deals_item">
+									{% if p.photo %}
+									<div class="deals_image"><img src="{{ p.photo.url }}" alt=""></div>
+									{% else %}
+									<div class="deals_image"><img src="{% static 'onetech/images/deals.png' %}" alt=""></div>
+									{% endif %}
+									<div class="deals_content">
+										<div class="deals_info_line d-flex flex-row justify-content-start">
+											<div class="deals_item_category"><a href="#">{{ p.cat }}</a></div>
+											
+										</div>
+										<div class="deals_info_line d-flex flex-row justify-content-start">
+											<div class="deals_item_name">{{ p.title }}</div>
+											
+										</div>
+										<div class="available">
+											<div class="available_line d-flex flex-row justify-content-start">
+												<div class="available_title">Участников: <span>6</span></div>
+												<div class="sold_title ml-auto">Всего мест: <span>28</span></div>
+											</div>
+											<div class="available_bar"><span style="width:17%"></span></div>
+										</div>
+										<div class="deals_timer d-flex flex-row align-items-center justify-content-start">
+											<div class="deals_timer_title_container">
+												<div class="deals_timer_title">Поторопись</div>
+												<div class="deals_timer_subtitle">Окончание программы через:</div>
+											</div>
+											<div class="deals_timer_content ml-auto">
+												<div class="deals_timer_box clearfix" data-target-time="">
+													<div class="deals_timer_unit">
+														<div id="deals_timer1_hr" class="deals_timer_hr"></div>
+														<span>часов</span>
+													</div>
+													<div class="deals_timer_unit">
+														<div id="deals_timer1_min" class="deals_timer_min"></div>
+														<span>мин</span>
+													</div>
+													<div class="deals_timer_unit">
+														<div id="deals_timer1_sec" class="deals_timer_sec"></div>
+														<span>сек</span>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								{% endfor %}
+							</div>
+						</div>
+					</div>
+					
+					<!-- Featured -->
+					<div class="featured">
+						<div class="tabbed_container">
+							<div class="tabs">
+								<ul class="clearfix">
+									<li class="active">Наука</li>
+									<li>Искусство</li>
+									<li>Спорт</li>
+									<li>Модельный центр</li>
+								</ul>
+								<div class="tabs_line"><span></span></div>
+							</div>
+
+							<!-- Product Panel -->
+							<div class="product_panel panel active">
+								<div class="featured_slider slider">
+									{% for p in view.program_last6 %}
+									{% if p.cat.id == 1 %}
+									<!-- Slider Item -->
+									<div class="featured_slider_item">
+										<div class="border_active"></div>
+										<div class="product_item discount d-flex flex-column align-items-center justify-content-center text-center">
+											{% if p.photo %}
+											<div class="product_image d-flex flex-column align-items-center justify-content-center"><img width="115"src="{{ p.photo.url }}" alt=""></div>
+											{% else %}
+											<div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="{% static 'onetech/images/featured_1.png' %}" alt=""></div>	
+											{% endif %}
+											<div class="product_content">
+												<div class="product_name"><div><a href="product.html">{{ p.title|truncatewords:2 }}</a></div></div>
+												<div class="product_extras">
+													<button class="product_cart_button">Зарегистрироваться</button>
+												</div>
+											</div>
+										</div>
+									</div>
+									{% endif %}
+									{% endfor %}
+
+								</div>
+								<div class="featured_slider_dots_cover"></div>
+							</div>
+
+							<!-- Product Panel -->
+
+							<div class="product_panel panel">
+								<div class="featured_slider slider">
+
+									{% for p in view.program_last6 %}
+									{% if p.cat.id == 2 %}
+									<!-- Slider Item -->
+									<div class="featured_slider_item">
+										<div class="border_active"></div>
+										<div class="product_item discount d-flex flex-column align-items-center justify-content-center text-center">
+											{% if p.photo %}
+											<div class="product_image d-flex flex-column align-items-center justify-content-center"><img width="115" src="{{ p.photo.url }}" alt=""></div>
+											{% else %}
+											<div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="{% static 'onetech/images/featured_1.png' %}" alt=""></div>	
+											{% endif %}
+											<div class="product_content">
+												<div class="product_name"><div><a href="product.html">{{ p.title|truncatewords:2 }}</a></div></div>
+												<div class="product_extras">
+													<button class="product_cart_button">Зарегистрироваться</button>
+												</div>
+											</div>
+										</div>
+									</div>
+									{% endif %}
+									{% endfor %}
+								</div>
+								<div class="featured_slider_dots_cover"></div>
+							</div>
+
+							<!-- Product Panel -->
+
+							<div class="product_panel panel">
+								<div class="featured_slider slider">
+
+									{% for p in view.program_last6 %}
+									{% if p.cat.id == 3 %}
+									<!-- Slider Item -->
+									<div class="featured_slider_item">
+										<div class="border_active"></div>
+										<div class="product_item discount d-flex flex-column align-items-center justify-content-center text-center">
+											{% if p.photo %}
+											<div class="product_image d-flex flex-column align-items-center justify-content-center"><img width="115" src="{{ p.photo.url }}" alt=""></div>
+											{% else %}
+											<div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="{% static 'onetech/images/featured_1.png' %}" alt=""></div>	
+											{% endif %}
+											<div class="product_content">
+												<div class="product_name"><div><a href="product.html">{{ p.title|truncatewords:2 }}</a></div></div>
+												<div class="product_extras">
+													<button class="product_cart_button">Зарегистрироваться</button>
+												</div>
+											</div>
+										</div>
+									</div>
+									{% endif %}
+									{% endfor %}
+								</div>
+								<div class="featured_slider_dots_cover"></div>
+							</div>
+							
+							<!-- Product Panel -->
+
+							<div class="product_panel panel">
+								<div class="featured_slider slider">
+
+									{% for p in view.program_last6 %}
+									{% if p.cat.id == 4 %}
+									<!-- Slider Item -->
+									<div class="featured_slider_item">
+										<div class="border_active"></div>
+										<div class="product_item discount d-flex flex-column align-items-center justify-content-center text-center">
+											{% if p.photo %}
+											<div class="product_image d-flex flex-column align-items-center justify-content-center"><img width="115" src="{{ p.photo.url }}" alt=""></div>
+											{% else %}
+											<div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="{% static 'onetech/images/featured_1.png' %}" alt=""></div>	
+											{% endif %}
+											<div class="product_content">
+												<div class="product_name"><div><a href="product.html">{{ p.title|truncatewords:2 }}</a></div></div>
+												<div class="product_extras">
+													<button class="product_cart_button">Зарегистрироваться</button>
+												</div>
+											</div>
+										</div>
+									</div>
+									{% endif %}
+									{% endfor %}
+								</div>
+								<div class="featured_slider_dots_cover"></div>
+							</div>	
+							
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
+	<!-- Brands -->
+
+	<div class="brands">
+		<div class="container">
+			<div class="row">
+				<div class="col">
+					<div class="brands_slider_container">
+						
+						<!-- Brands Slider -->
+
+						<div class="owl-carousel owl-theme brands_slider">
+							
+							<div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="images/brands_1.jpg" alt=""></div></div>
+							<div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="images/brands_2.jpg" alt=""></div></div>
+							<div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="images/brands_3.jpg" alt=""></div></div>
+							<div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="images/brands_4.jpg" alt=""></div></div>
+							<div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="images/brands_5.jpg" alt=""></div></div>
+							<div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="images/brands_6.jpg" alt=""></div></div>
+							<div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="images/brands_7.jpg" alt=""></div></div>
+							<div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="images/brands_8.jpg" alt=""></div></div>
+
+						</div>
+						
+						<!-- Brands Slider Navigation -->
+						<div class="brands_nav brands_prev"><i class="fas fa-chevron-left"></i></div>
+						<div class="brands_nav brands_next"><i class="fas fa-chevron-right"></i></div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+{% endblock content %}	

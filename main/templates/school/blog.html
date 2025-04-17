@@ -1,0 +1,95 @@
+{% extends 'school/base_one.html' %}
+{% load static %}
+{% load webp %}
+
+
+{% block description %}Новости образовательной организации ГБОУ "Вершина{% endblock %}
+
+{% block title %}
+Новости
+{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'onetech/styles/blog_styles.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'onetech/styles/blog_responsive.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'onetech/styles/shop_styles.css' %}">
+
+	<!-- Home -->
+
+	<div class="home">
+		<div class="home_background parallax-window" data-parallax="scroll" data-image-src="{% static 'onetech/images/shop_background.jpg' %}"></div>
+		<div class="home_overlay"></div>
+		<div class="home_content d-flex flex-column align-items-center justify-content-center">
+			<h2 class="home_title">Наши новости</h2>
+		</div>
+	</div>
+
+	<!-- Blog -->
+
+	<div class="blog">
+		<div class="container">
+			<div class="row">
+				<div class="col">
+					<div class="blog_posts d-flex flex-row align-items-start justify-content-between">
+						{% for n in news %}
+						<!-- Blog post -->
+						<div class="blog_post">
+							{% if n.photo %}
+							<div class="blog_image" style="background-image:url({{ n.photo.url }})"></div>
+							{% else %}
+							<div class="blog_image" style="background-image:url({% static 'onetech/images/blog_1.jpg' %})"></div>
+							{% endif %}
+							<div class="blog_text">{{ n.title|truncatewords:7 }}</div>
+							<div class="blog_button"><a href="{{ n.get_absolute_url }}">Читать далее</a></div>
+						</div>
+						{% endfor %}
+					
+						
+					</div>
+				</div>
+					
+			</div>
+		
+		</div>
+
+	</div>
+
+	<div class="shop_page_nav d-flex flex-row justify-content-center">
+    {% if page_obj.has_previous %}
+    <div class="page_prev d-flex flex-column align-items-center justify-content-center">
+        <a href="?page={{ page_obj.previous_page_number }}" class="fas fa-chevron-left"></a>
+    </div>
+    {% endif %}
+    
+    <ul class="page_nav d-flex flex-row list-unstyled">
+        {% for num in page_obj.paginator.page_range %}
+            {% if page_obj.number == num %}
+                <li class="active mx-1">
+                    <a href="?page={{ num }}" class="px-2 py-1 d-block">{{ num }}</a>
+                </li>
+            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                <li class="mx-1">
+                    <a href="?page={{ num }}" class="px-2 py-1 d-block">{{ num }}</a>
+                </li>
+            {% elif num == 1 or num == page_obj.paginator.num_pages %}
+                <li class="mx-1">
+                    <a href="?page={{ num }}" class="px-2 py-1 d-block">{{ num }}</a>
+                </li>
+            {% elif num == page_obj.number|add:'-3' or num == page_obj.number|add:'3' %}
+                <li class="mx-1">
+                    <span class="px-2 py-1 d-block">...</span>
+                </li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+    
+    {% if page_obj.has_next %}
+    <div class="page_next d-flex flex-column align-items-center justify-content-center">
+        <a href="?page={{ page_obj.next_page_number }}" class="fas fa-chevron-right"></a>
+    </div>
+    {% endif %}
+</div>
+	
+
+
+{% endblock content %}

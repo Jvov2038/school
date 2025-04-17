@@ -1,0 +1,79 @@
+{% extends 'school/base_one.html' %}
+{% load l10n %}
+{% load static %}
+
+{% block description %}Личный кабинет Образовательный центр ГБОУ 'Вершина'{% endblock %}
+
+{% block title %}
+Результаты поиска
+{% endblock %}
+
+
+{% block content %}
+
+  <!-- ================ start banner area ================= -->
+	<section class="blog-banner-area" id="category">
+		<div class="container h-100">
+			<div class="blog-banner">
+				<div class="text-center">
+					<h1>Результаты поиска</h1>
+					<nav aria-label="breadcrumb" class="banner-breadcrumb">
+            			<ol class="breadcrumb">
+            				<li class="breadcrumb-item"><a href="{% url 'index' %}">Домой</a></li>
+            				<li class="breadcrumb-item active" aria-current="page">Результаты поиска</li>
+            			</ol>
+        			</nav>
+				</div>
+			</div>
+    	</div>
+	</section>
+	
+	<!-- Cart -->
+
+
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-10 offset-lg-1">
+					<div class="cart_container">
+						<div class="cart_items">
+							<ul class="cart_list">
+								<li class="cart_item clearfix">
+									<div class="cart_item_info d-flex flex-md-row flex-column justify-content-between">
+										<div class="cart_item_name cart_info_col">
+											<div class="cart_item_title">Название документа</div>
+											{% for doc in view.get_queryset %}
+											{% if doc.pdf_file %}
+											<div class="cart_item_text"><a href="{{ doc.pdf_file.url }}">{{ doc.name_pdffile }}</a></div>
+											{% endif %}
+											{% endfor %}
+										</div>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+        
+        
+  <!--================Instagram Area =================-->
+  <section class="instagram_area">
+    <div class="container box_1620">
+      <div class="insta_btn">
+        <a class="btn theme_btn" href="#">Follow us on instagram</a>
+      </div>
+      <div class="instagram_image row m0">
+        <a href="#"><img src="img/instagram/ins-1.jpg" alt=""></a>
+        <a href="#"><img src="img/instagram/ins-2.jpg" alt=""></a>
+        <a href="#"><img src="img/instagram/ins-3.jpg" alt=""></a>
+        <a href="#"><img src="img/instagram/ins-4.jpg" alt=""></a>
+        <a href="#"><img src="img/instagram/ins-5.jpg" alt=""></a>
+        <a href="#"><img src="img/instagram/ins-6.jpg" alt=""></a>
+      </div>
+    </div>
+  </section>
+  <!--================End Instagram Area =================-->
+
+	<!-- End Align Area -->
+{% endblock %}

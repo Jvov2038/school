@@ -1,0 +1,209 @@
+{% extends 'school/base_one.html' %}
+{% load l10n %}
+{% load static %}
+{% block description %}Личный кабинет Образовательный центр ГБОУ 'Вершина'{% endblock %}
+
+{% block title %}
+Личный кабинет
+{% endblock %}
+
+
+{% block content %}
+{{ form.media }}
+<link rel="stylesheet" type="text/css" href="{% static 'onetech/styles/shop_styles.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'onetech/styles/shop_responsive.css' %}">
+
+	<!-- ================ start banner area ================= -->
+	<section class="blog-banner-area" id="blog">
+		<div class="container h-100">
+			<div class="blog-banner">
+				<div class="text-center">
+					<h1>{{ title }}</h1>
+					<nav aria-label="breadcrumb" class="banner-breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="{% url 'index' %}">Домой</a></li>
+	          <li class="breadcrumb-item active" aria-current="page">{{ title }}</li>
+            </ol>
+          </nav>
+				</div>
+			</div>
+    </div>
+	</section>
+	<!-- ================ end banner area ================= -->
+	
+	
+		<!-- Shop -->
+
+	<div class="shop">
+		
+		<div class="container">
+            <div class="row">
+            	<div class="col-lg-3">
+					<div class="shop_sidebar">
+						<div class="sidebar_section">
+                            <nav class="custom_tabs text-center">
+								<ul class="sidebar_categories">
+                                    <li class="nav" id="nav-tab" role="tablist" style="display: flex; flex-direction: column;">
+                                        <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">
+                                            <p>ОСНОВНЫЕ СВЕДЕНИЯ</p><hr>
+                                        </a>
+                                        <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">
+                                            <p>СТРУКТУРА И ОРГАНЫ УПРАВЛЕНИЯ ОБРАЗОВАТЕЛЬНОЙ ОРГАНИЗАЦИЕЙ</p><hr>
+                                        </a>
+                                        <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">
+                                            <p>ДОКУМЕНТЫ</p><hr>
+                                        </a>
+                                        <a class="nav-item nav-link" id="nav-contact2-tab" data-toggle="tab" href="#nav-contact2" role="tab" aria-controls="nav-contact2" aria-selected="false">
+                                            <p>ОБРАЗОВАНИЕ</p><hr>
+                                        </a>
+                                        <a class="nav-item nav-link" id="nav-contact3-tab" data-toggle="tab" href="#nav-contact3" role="tab" aria-controls="nav-contact3" aria-selected="false">
+                                            <p>РУКОВОДСТВО. ПЕДАГОГИЧЕСКИЙ (НАУЧНО-ПЕДАГОГИЧЕСКИЙ) СОСТАВ</p><hr>
+                                        </a>
+                                        <a class="nav-item nav-link" id="nav-contact4-tab" data-toggle="tab" href="#nav-contact4" role="tab" aria-controls="nav-contact4" aria-selected="false">
+                                            <p>МАТЕРИАЛЬНО-ТЕХНИЧЕСКОЕ ОБЕСПЕЧЕНИЕ И ОСНАЩЕННОСТЬ ОБРАЗОВАТЕЛЬНОГО ПРОЦЕССА</p><hr>
+                                        </a>
+                                        <a class="nav-item nav-link" id="nav-contact5-tab" data-toggle="tab" href="#nav-contact5" role="tab" aria-controls="nav-contact5" aria-selected="false">
+                                            <p>ПЛАТНЫЕ ОБРАЗОВАТЕЛЬНЫЕ УСЛУГИ</p><hr>
+                                        </a>
+                                        <a class="nav-item nav-link" id="nav-contact6-tab" data-toggle="tab" href="#nav-contact6" role="tab" aria-controls="nav-contact6" aria-selected="false">
+                                            <p>ФИНАНСОВО-ХОЗЯЙСТВЕННАЯ ДЕЯТЕЛЬНОСТЬ</p><hr>
+                                        </a>
+                                        <a class="nav-item nav-link" id="nav-contact7-tab" data-toggle="tab" href="#nav-contact7" role="tab" aria-controls="nav-contact7" aria-selected="false">
+                                            <p>ВАКАНТНЫЕ МЕСТА ДЛЯ ПРИЕМА (ПЕРЕВОДА) ОБУЧАЮЩИХСЯ</p><hr>
+                                        </a>
+                                        <a class="nav-item nav-link" id="nav-contact8-tab" data-toggle="tab" href="#nav-contact8" role="tab" aria-controls="nav-contact8" aria-selected="false">
+                                            <p>ДОСТУПНАЯ СРЕДА</p><hr>
+                                        </a>
+                                        <a class="nav-item nav-link" id="nav-contact9-tab" data-toggle="tab" href="#nav-contact9" role="tab" aria-controls="nav-contact9" aria-selected="false">
+                                            <p>МЕЖДУНАРОДНОЕ СОТРУДНИЧЕСТВО</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </aside>
+                    </div>
+                    </div>
+                </div>
+                <div class="col-lg-9 mb-5 mb-lg-0">
+                    <div class="tab-content" id="nav-tabContent">
+                        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+							{% include 'school/_profile_form.html' %}
+                        </div>
+                        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+
+                        </div>
+                        <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-profile-tab">
+                        	<div class="single_post_text">
+								<h4>Учредительные документы</h4>
+
+							</div>
+                        </div>
+                        <div class="tab-pane fade tab-pane-custom tab-profile-pane" id="nav-contact2" role="tabpanel" aria-labelledby="nav-profile-tab">
+							
+                        </div>
+                        <div class="tab-pane fade" id="nav-contact3" role="tabpanel" aria-labelledby="nav-profile-tab">
+
+                        </div>
+                        <div class="tab-pane fade" id="nav-contact4" role="tabpanel" aria-labelledby="nav-profile-tab">
+
+                        </div>
+                        <div class="tab-pane fade" id="nav-contact5" role="tabpanel" aria-labelledby="nav-profile-tab">
+
+                        </div>
+                        <div class="tab-pane fade" id="nav-contact6" role="tabpanel" aria-labelledby="nav-profile-tab">
+ 
+                        </div>
+                        <div class="tab-pane fade" id="nav-contact7" role="tabpanel" aria-labelledby="nav-profile-tab">
+
+                        </div>
+                        <div class="tab-pane fade" id="nav-contact8" role="tabpanel" aria-labelledby="nav-profile-tab">
+
+                        </div>
+                        <div class="tab-pane fade" id="nav-contact9" role="tabpanel" aria-labelledby="nav-profile-tab">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+	</div>
+	
+<!-- Подключение jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Подключение jQuery UI -->
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<!-- Подключение локализации для русского языка -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/i18n/jquery-ui-i18n.min.js"></script>	
+	
+<script>
+    // Освобождаем $ для других библиотек
+    var $j = jQuery.noConflict();
+
+    // Используем $j для jQuery UI
+    $j(function() {
+        $j(".datepicker").datepicker({
+		    dateFormat: "yy-mm-dd",
+		    changeMonth: true,
+		    changeYear: true,
+		    yearRange: "1985:2023",
+		    regional: "ru",
+		    closeText: "Закрыть",  // Текст для кнопки "Закрыть"
+		    currentText: "Сегодня", // Текст для кнопки "Сегодня"
+		    monthNames: ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", 
+		                 "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"],
+		    monthNamesShort: ["Янв", "Фев", "Мар", "Апр", "Май", "Июн", 
+		                      "Июл", "Авг", "Сен", "Окт", "Ноя", "Дек"],
+		    dayNames: ["воскресенье", "понедельник", "вторник", "среда", "четверг", "пятница", "суббота"],
+		    dayNamesShort: ["вск", "пнд", "втр", "срд", "чтв", "птн", "сбт"],
+		    dayNamesMin: ["Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб"],
+		    firstDay: 1  // Первый день недели (1 - понедельник)
+        });
+    });
+
+    // Используем $ для Bootstrap (если нужно)
+    $(function() {
+        // Код для Bootstrap
+    });
+</script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const tabs = document.querySelectorAll('[data-toggle="tab"]');
+    const savedTab = localStorage.getItem('activeTab');
+
+    if (savedTab) {
+      const trigger = document.querySelector(`[href="${savedTab}"]`);
+      if (trigger) {
+        new bootstrap.Tab(trigger).show();
+      }
+    }
+
+    tabs.forEach(tab => {
+      tab.addEventListener('shown.bs.tab', function (e) {
+        localStorage.setItem('activeTab', e.target.getAttribute('href'));
+      });
+    });
+  });
+</script>
+
+<style>
+/* Общие стили для табов */
+.tab-pane-custom {
+    padding: 30px;
+    border-radius: 10px;
+    color: #fff; /* если фон тёмный */
+}
+
+/* Фон с изображением для конкретной вкладки */
+.tab-profile-pane {
+    background-image: url("{% static 'onetech/images/safe.webp' %}");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+</style>
+
+{% endblock %}

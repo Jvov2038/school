@@ -1,0 +1,161 @@
+{% extends "school/base_one.html" %}
+{% load allauth i18n %}
+{% block title %}
+    {% trans "Signup" %}
+{% endblock title %}
+{% block content %}
+
+<!-- ================ start banner area ================= -->
+<section class="blog-banner-area" id="category">
+    <div class="container h-100">
+        <div class="blog-banner">
+            <div class="text-center">
+                <h1>Регистрация</h1>
+                <nav aria-label="breadcrumb" class="banner-breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{% url 'index' %}">Домой</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Регистрация</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ================ end banner area ================= -->
+
+<!--================Login Box Area =================-->
+<section class="login_box_area section-margin">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="login_form_inner register_form_inner">
+                    <form class="row login_form" action="{% url 'account_signup' %}" method="post" novalidate="novalidate">
+                        {% csrf_token %}
+
+                        <!-- Отображение общих ошибок формы (не связанных с конкретными полями) -->
+                        {% if form.non_field_errors %}
+                            <div class="alert alert-danger">
+                                {{ form.non_field_errors }}
+                            </div>
+                        {% endif %}
+
+                        <!-- Автоматический рендеринг полей формы -->
+                        {% for field in form %}
+                            <div class="col-md-12 form-group p_star">
+                                {{ field.label_tag }}
+                                {{ field }}
+
+                                <!-- Отображение ошибок для каждого поля -->
+                                {% if field.errors %}
+                                    <div class="alert alert-danger">
+                                        {{ field.errors }}
+                                    </div>
+                                {% endif %}
+
+                                <!-- Подсказки (help_text) скрыты по умолчанию и отображаются только при ошибках -->
+                                {% if field.help_text %}
+                                    <small class="form-text text-muted help-text" style="display: none;">
+                                        {{ field.help_text }}
+                                    </small>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+
+                        <!-- Скрытое поле для redirect (если используется) -->
+                        {% if redirect_field_value %}
+                            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                        {% endif %}
+
+                        <!-- Кнопка отправки формы -->
+                        <div class="col-md-12 form-group p_star">
+                            <button type="submit" class="button cart_button_checkout">
+                                Зарегистрироваться
+                            </button>
+                        </div>
+
+                        <!-- Ссылка на вход, если аккаунт уже существует -->
+                        <div class="col-md-12 form-group p_star">
+                            <p>
+                                Уже есть аккаунт? <a href="{{ login_url }}">Войдите</a>.
+                            </p>
+                        </div>
+
+                        <!-- Дополнительные опции (например, регистрация через passkey или социальные сети) -->
+                        {% if PASSKEY_SIGNUP_ENABLED %}
+                            <div class="col-md-12 form-group p_star">
+                                <a href="{{ signup_by_passkey_url }}" class="button button-register w-100">
+                                    Зарегистрироваться с помощью passkey
+                                </a>
+                            </div>
+                        {% endif %}
+
+                        {% if SOCIALACCOUNT_ENABLED %}
+                            <div class="col-md-12 form-group p_star">
+                                {% include "socialaccount/snippets/login.html" with page_layout="entrance" %}
+                            </div>
+                        {% endif %}
+                    </form>
+
+                    <!-- JavaScript для отображения подсказок только при ошибках и валидации паролей -->
+                    <script>
+                        document.addEventListener("DOMContentLoaded", function() {
+                            // Находим все поля формы
+                            const formFields = document.querySelectorAll(".form-group");
+
+                            formFields.forEach(field => {
+                                // Находим поле ввода и подсказку
+                                const input = field.querySelector("input, select, textarea");
+                                const helpText = field.querySelector(".help-text");
+
+                                if (input && helpText) {
+                                    // Скрываем подсказку по умолчанию
+                                    helpText.style.display = "none";
+
+                                    // Отображаем подсказку при фокусе на поле
+                                    input.addEventListener("focus", function() {
+                                        helpText.style.display = "block";
+                                    });
+
+                                    // Скрываем подсказку, если поле введено корректно
+                                    input.addEventListener("blur", function() {
+                                        if (!input.value || input.validity.valid) {
+                                            helpText.style.display = "none";
+                                        }
+                                    });
+
+                                    // Отображаем подсказку при ошибке валидации
+                                    input.addEventListener("invalid", function() {
+                                        helpText.style.display = "block";
+                                    });
+                                }
+                            });
+
+                            // Валидация совпадения паролей
+                            const password1 = document.querySelector("#id_password1");
+                            const password2 = document.querySelector("#id_password2");
+                            const passwordError = document.createElement("div");
+                            passwordError.style.color = "red";
+                            passwordError.style.display = "none";
+                            password2.parentElement.appendChild(passwordError);
+
+                            function validatePasswords() {
+                                if (password1.value !== password2.value) {
+                                    passwordError.textContent = "Пароли не совпадают.";
+                                    passwordError.style.display = "block";
+                                } else {
+                                    passwordError.style.display = "none";
+                                }
+                            }
+
+                            password1.addEventListener("input", validatePasswords);
+                            password2.addEventListener("input", validatePasswords);
+                        });
+                    </script>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--================End Login Box Area =================-->
+{% endblock content %}

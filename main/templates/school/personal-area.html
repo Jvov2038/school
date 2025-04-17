@@ -1,0 +1,104 @@
+{% extends 'school/base_one.html' %}
+{% load l10n %}
+{% load static %}
+{% block description %}Личный кабинет Образовательный центр ГБОУ 'Вершина'{% endblock %}
+
+{% block title %}
+Личный кабинет
+{% endblock %}
+
+{% block content %}
+{{ form.media }}
+<link rel="stylesheet" type="text/css" href="{% static 'onetech/styles/shop_styles.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'onetech/styles/shop_responsive.css' %}">
+
+<!-- ================ start banner area ================= -->
+<section class="blog-banner-area" id="blog">
+    <div class="container h-100">
+        <div class="blog-banner">
+            <div class="text-center">
+                <h1>{{ title }}</h1>
+                <nav aria-label="breadcrumb" class="banner-breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{% url 'index' %}">Домой</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">{{ title }}</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ================ end banner area ================= -->
+
+<!-- Shop -->
+
+<div class="shop">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="shop_sidebar">
+                    <div class="sidebar_section">
+                        <nav class="custom_tabs text-center">
+                            <ul class="sidebar_categories">
+                                <li class="nav" id="nav-tab" role="tablist" style="display: flex; flex-direction: column;">
+                                    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">
+                                        <p>ОСНОВНЫЕ СВЕДЕНИЯ</p><hr>
+                                    </a>
+                                    <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">
+                                        <p>СТРУКТУРА И ОРГАНЫ УПРАВЛЕНИЯ ОБРАЗОВАТЕЛЬНОЙ ОРГАНИЗАЦИЕЙ</p><hr>
+                                    </a>
+                                    <!-- Добавьте другие вкладки по необходимости -->
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-9 mb-5 mb-lg-0">
+                <div class="tab-content" id="nav-tabContent">
+                    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                        <!-- Вставляем форму -->
+                        {% include 'school/_profile_form.html' %}
+                        
+                        <!-- Поле для ввода школы -->
+                        <div class="form-group">
+                            <label for="school">Школа</label>
+                            <input type="text" name="school" id="school" class="form-control" placeholder="Введите название школы...">
+                        </div>
+                    </div>
+                    <!-- Добавьте другие вкладки по необходимости -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Подключение jQuery и jQuery UI для автозаполнения -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+<script>
+$(document).ready(function() {
+    $("#school").autocomplete({
+        source: function(request, response) {
+            $.ajax({
+                url: "{% url 'school_search' %}",
+                data: {
+                    'term': request.term
+                },
+                success: function(data) {
+                    response(data);
+                }
+            });
+        },
+        minLength: 2,  // Минимальное количество символов для поиска
+        select: function(event, ui) {
+            $('#school').val(ui.item.label);  // Заполняем поле школы выбранным значением
+        }
+    });
+});
+</script>
+
+{% endblock %}
