@@ -1,0 +1,12 @@
+# Python cache
+__pycache__/
+*.pyc
+
+# Виртуальное окружение
+venv/
+.env
+
+# Другие временные папки/файлы
+*.log
+media/
+static/
