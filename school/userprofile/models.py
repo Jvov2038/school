@@ -41,10 +41,23 @@ class Location(models.Model, GeoItem):
 	@property
 	def geomap_icon(self):
 		return self.default_icon
+		
+	    # Свойство для возвращения координат в формате GeoJSON
+	@property
+	def geojson_coordinates(self):
+		"""Возвращает координаты в формате GeoJSON"""
+		if self.lon is not None and self.lat is not None:
+			return {
+				"type": "Point",
+				"coordinates": [self.lon, self.lat]
+				
+			}
+			return None
 
 
 class SchoolClass(models.Model):
     school_class = models.CharField(max_length=10, null=True, blank=True, verbose_name="Учебный класс")
+    grade = models.PositiveIntegerField(verbose_name="Класс")
 
     def __str__(self):
         return self.school_class

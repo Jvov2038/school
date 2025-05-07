@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'django_admin_geomap',
     'dal',
     'dal_select2',
+    'django_select2',
 ]
 
 MIDDLEWARE = [

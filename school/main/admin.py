@@ -117,13 +117,13 @@ class ContactGroupAdmin(admin.ModelAdmin):
 
 @admin.register(Contact)
 class ContactAdmin(admin.ModelAdmin):
-    list_display = ('name', 'group', 'phone', 'email', 'is_main', 'order')
+    list_display = ('id', 'name', 'group', 'phone', 'email', 'is_main', 'order')
     list_filter = ('group', 'is_main')
     list_editable = ('is_main', 'order')
     search_fields = ('name', 'phone', 'email')
     fieldsets = (
         (None, {
-            'fields': ('group', 'name', 'is_main', 'order')
+            'fields': ('group', 'name', 'is_main', 'order', 'location')
         }),
         ('Контактная информация', {
             'fields': ('phone', 'email', 'address', 'description')

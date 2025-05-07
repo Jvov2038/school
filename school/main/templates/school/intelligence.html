@@ -13,23 +13,16 @@
 <link rel="stylesheet" type="text/css" href="{% static 'onetech/styles/shop_styles.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'onetech/styles/shop_responsive.css' %}">
 
-	<!-- ================ start banner area ================= -->
-	<section class="blog-banner-area" id="blog">
-		<div class="container h-100">
-			<div class="blog-banner">
-				<div class="text-center">
-					<h1>{{ title }}</h1>
-					<nav aria-label="breadcrumb" class="banner-breadcrumb">
-            <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a href="{% url 'index' %}">Домой</a></li>
-	          <li class="breadcrumb-item active" aria-current="page">{{ title }}</li>
-            </ol>
-          </nav>
-				</div>
-			</div>
+<!-- ================ start banner area ================= -->
+	<div class="home">	
+		<div class="home_background parallax-window" data-parallax="scroll" data-image-src="{% static 'onetech/images/background_intelligence.webp' %}"></div>
+		<div class="home_overlay"></div>
+		<div class="home_content d-flex flex-column align-items-center justify-content-center">
+			<h2 class="home_title">{{ title }}</h2>
+		</div>
+
     </div>
-	</section>
-	<!-- ================ end banner area ================= -->
+
 	
 	
 		<!-- Shop -->

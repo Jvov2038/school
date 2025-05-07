@@ -8,27 +8,24 @@
 {% endblock %}
 
 {% block content %}
-{{ form.media }}
+	{{ form.media }}
 <link rel="stylesheet" type="text/css" href="{% static 'onetech/styles/shop_styles.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'onetech/styles/shop_responsive.css' %}">
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+
+
+
 
 <!-- ================ start banner area ================= -->
-<section class="blog-banner-area" id="blog">
-    <div class="container h-100">
-        <div class="blog-banner">
-            <div class="text-center">
-                <h1>{{ title }}</h1>
-                <nav aria-label="breadcrumb" class="banner-breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{% url 'index' %}">Домой</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">{{ title }}</li>
-                    </ol>
-                </nav>
-            </div>
-        </div>
+	<div class="home">	
+		<div class="home_background parallax-window" data-parallax="scroll" data-image-src="{% static 'onetech/images/shop_background.jpg' %}"></div>
+		<div class="home_overlay"></div>
+		<div class="home_content d-flex flex-column align-items-center justify-content-center">
+			<h2 class="home_title">{{ title }}</h2>
+		</div>
+
     </div>
-</section>
-<!-- ================ end banner area ================= -->
 
 <!-- Shop -->
 
@@ -47,7 +44,12 @@
                                     <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">
                                         <p>Мои документы</p><hr>
                                     </a>
-                                    <!-- Добавьте другие вкладки по необходимости -->
+                                    <a class="nav-item nav-link" id="nav-programs-tab" data-toggle="tab" href="#nav-programs" role="tab" aria-controls="nav-programs" aria-selected="false">
+                                        <p>Мои программы</p><hr>
+                                    </a>
+                                    <a class="nav-item nav-link" id="nav-lectures-tab" data-toggle="tab" href="#nav-lectures" role="tab" aria-controls="nav-lectures" aria-selected="false">
+                                        <p>Мои лекции</p><hr>
+                                    </a>
                                 </li>
                             </ul>
                         </nav>
@@ -57,14 +59,58 @@
 
             <div class="col-lg-9 mb-5 mb-lg-0">
                 <div class="tab-content" id="nav-tabContent">
+                    <!-- Личные данные -->
                     <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                        <!-- Вставляем форму -->
+                    
                         {% include 'school/_profile_form.html' %}
+                    </div>
+                    
+                    <!-- Мои документы -->
+                    <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                        <h4>Мои документы</h4>
+                        {% for document in documents %}
+                            <div class="document-item">
+                                <h5><a href="{{ document.get_absolute_url }}">{{ document.title }}</a></h5>
+                                <p>{% autoescape off %}{{ document.content|truncatewords:20 }}{% endautoescape %}</p>
+                                <a href="{{ document.pdf_file.url }}" class="btn btn-primary" download>Скачать PDF</a>
+                            </div>
+                        {% empty %}
+                            <p>Нет документов для отображения.</p>
+                        {% endfor %}
+                    </div>
+                    
+                    <!-- Мои программы -->
+                    <div class="tab-pane fade" id="nav-programs" role="tabpanel" aria-labelledby="nav-programs-tab">
+                        <h4>Мои программы</h4>
+                        {% for program in programs %}
+                            <div class="program-item">
+                                <h5><a href="{{ program.get_absolute_url }}">{{ program.title }}</a></h5>
+                                <p>{% autoescape off %}{{ program.content|truncatewords:20 }}{% endautoescape %}</p>
+                            </div>
+                        {% empty %}
+                            <p>Нет программ для отображения.</p>
+                        {% endfor %}
+                    </div>
+                    
+                    <!-- Мои лекции -->
+                    <div class="tab-pane fade" id="nav-lectures" role="tabpanel" aria-labelledby="nav-lectures-tab">
+                        <h4>Мои лекции</h4>
+                        {% for lecture in lectures %}
+                            <div class="lecture-item">
+                                <h5><a href="{{ lecture.get_absolute_url }}">{{ lecture.title }}</a></h5>
+                                <p>{% autoescape off %}{{ lecture.content|truncatewords:20 }}{% endautoescape %}</p>
+                                <a href="{{ lecture.URL }}" target="_blank" class="btn btn-info">Перейти к лекции</a>
+                            </div>
+                        {% empty %}
+                            <p>Нет лекций для отображения.</p>
+                        {% endfor %}
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
 {% endblock %}

@@ -29,6 +29,7 @@ from django.views import View
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_GET
 from django.utils.decorators import method_decorator
+from django.utils.formats import number_format
 from django.db.models import Q
 from django.db import IntegrityError
 from django.db import transaction
@@ -36,18 +37,67 @@ from django.views.generic import (
     CreateView, DetailView, ListView, TemplateView
 )
 
+from dal import autocomplete
+
 # Локальные импорты
 from .forms import *
 from .models import *
 from .utils import *
-from userprofile.models import District, School, SchoolClass, UserProfile
+from userprofile.models import District, School, SchoolClass, UserProfile, Location
 
 
 
 
 
+from .forms import PersonalAreaForm
+from .models import Documents, Lecture, Prog
 
 
+
+def location_geojson(request):
+    location_id = request.GET.get('id')
+    if not location_id:
+        return JsonResponse({"type": "FeatureCollection", "features": []})
+    
+    location = get_object_or_404(Location, id=location_id, lat__isnull=False, lon__isnull=False)
+    
+    feature = {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [location.lon, location.lat],
+        },
+        "properties": {
+            "popup": location.geomap_popup_view,
+        }
+    }
+
+    return JsonResponse({"type": "FeatureCollection", "features": [feature]})
+
+
+def contact_location_geojson(request, contact_id):
+    try:
+        contact = Contact.objects.get(id=1)
+        location = contact.location
+        if location and location.lat and location.lon:
+            data = {
+                "type": "FeatureCollection",
+                "features": [{
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [location.lon, location.lat],
+                    },
+                    "properties": {
+                        "popup": contact.name,
+                    }
+                }]
+            }
+            return JsonResponse(data)
+        else:
+            return JsonResponse({"type": "FeatureCollection", "features": []})
+    except Contact.DoesNotExist:
+        return JsonResponse({"type": "FeatureCollection", "features": []})
 
 
 def school_search(request):
@@ -60,21 +110,25 @@ def school_search(request):
         return JsonResponse({'schools': []})
         
 
-@method_decorator(login_required, name='dispatch')
+
+
 class SchoolAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
-        try:
-            qs = School.objects.all()
+        if not self.request.user.is_authenticated:
+            return School.objects.none()
 
-            if hasattr(self, 'q') and self.q:
-                qs = qs.filter(name__icontains=self.q)
+        qs = School.objects.all()
 
-            qs = qs[:10]
-            return qs
-        except Exception as e:
-            # Логирование ошибки для отладки
-            print(f"Ошибка в SchoolAutocomplete: {e}")
-            return School.objects.none()  # Возвращаем пустой queryset, чтобы не ломать приложение
+        if self.q:
+            terms = self.q.split()
+            for term in terms:
+                qs = qs.filter(
+                    Q(title__icontains=term) |
+                    Q(location__name__icontains=term)  # ищем по названию местоположения
+                )
+
+        return qs
+
 
 
 @csrf_exempt  # временно отключаем CSRF для простоты (в продакшене лучше использовать DRF)
@@ -317,19 +371,24 @@ logger = logging.getLogger(__name__)
 
 @login_required
 def personal_area(request):
-    user_profile = get_object_or_404(UserProfile, user=request.user)
+    user = request.user
+    user_profile = get_object_or_404(UserProfile, user=user)
+
+    # Получаем связанные объекты для текущего пользователя
+    documents = Documents.objects.filter(executor=user)
+    lectures = Lecture.objects.filter(prog__registration=user)  # Получаем лекции, где пользователь зарегистрирован
+    programs = Prog.objects.filter(registration=user)  # Программы, в которых участвует пользователь
 
     if request.method == 'POST':
         form = PersonalAreaForm(
             data=request.POST,
             files=request.FILES,
-            user=request.user,
+            user=user,
             instance=user_profile
         )
         if form.is_valid():
             try:
                 with transaction.atomic():
-                    user = request.user
                     user.username = form.cleaned_data['username']
                     user.email = form.cleaned_data['email']
                     user.first_name = form.cleaned_data['first_name']
@@ -340,7 +399,7 @@ def personal_area(request):
                     profile.user = user
                     profile.save()
 
-                    messages.success(request, "Данные успешно обновлены")
+                    messages.success(request, "Данные успешно обновлены.")
                     return redirect('personal_area')
             except IntegrityError as e:
                 messages.error(request, "Ошибка: пользователь с таким именем уже существует.")
@@ -349,18 +408,25 @@ def personal_area(request):
                 messages.error(request, f"Произошла ошибка: {str(e)}")
                 logger.error(f"Error saving profile: {e}")
     else:
-        form = PersonalAreaForm(instance=user_profile, user=request.user, initial={
-            'username': request.user.username,
-            'email': request.user.email,
-            'first_name': request.user.first_name,
-            'last_name': request.user.last_name,
-        })
+        form = PersonalAreaForm(
+            instance=user_profile,
+            user=user,
+            initial={
+                'username': user.username,
+                'email': user.email,
+                'first_name': user.first_name,
+                'last_name': user.last_name,
+            }
+        )
 
     return render(request, 'school/personal-area.html', {
         'form': form,
-        'user_profile': user_profile
+        'user_profile': user_profile,
+        'documents': documents,
+        'lectures': lectures,
+        'programs': programs,
+        'title': 'Личный кабинет',
     })
-    
 
 
 class Search(ListView):
@@ -588,6 +654,11 @@ class Intelligence(DataMixin, ListView):
         international_cooperation  = Documents.objects.filter(section__id=15)
         return international_cooperation 
         
+    @staticmethod
+    def background_intelligence():
+        background_intelligence  = Documents.objects.filter(title="background_intelligence")
+        return international_cooperation 
+        
         
 class Confidential_information(DataMixin, ListView):
     model = Documents
@@ -685,33 +756,44 @@ class Blog(DataMixin, ListView):
 		return all_news    
             
 
+
 class ContactsView(TemplateView):
     template_name = 'school/contacts.html'
-    
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        main_contact = Contact.objects.filter(is_main=True).select_related('location').first()
         context.update({
-            'main_contact': Contact.objects.filter(is_main=True).first(),
+            'main_contact': main_contact,
             'contact_groups': ContactGroup.objects.prefetch_related('contacts').all(),
         })
+
+        # Добавим координаты, если они есть
+        if main_contact and main_contact.location:
+            lat = main_contact.location.lat
+            lon = main_contact.location.lon
+            context['location_lat'] = f'{lat:.6f}'  # строка с точкой
+            context['location_lon'] = f'{lon:.6f}'
+            context['location_name'] = main_contact.name
+
         return context
-    
+
     def post(self, request, *args, **kwargs):
         name = request.POST.get('name')
         email = request.POST.get('email')
         phone = request.POST.get('phone')
         message = request.POST.get('message')
         contact_id = request.POST.get('contact')
-        
+
         if not all([name, email, message]):
             messages.error(request, 'Пожалуйста, заполните все обязательные поля')
             return self.get(request, *args, **kwargs)
-        
+
         try:
             contact = Contact.objects.get(id=contact_id) if contact_id else None
         except Contact.DoesNotExist:
             contact = None
-        
+
         ContactRequest.objects.create(
             name=name,
             email=email,
@@ -719,9 +801,10 @@ class ContactsView(TemplateView):
             message=message,
             contact=contact
         )
-        
+
         messages.success(request, 'Ваше сообщение успешно отправлено!')
         return redirect('contacts')
+
         
         
 class Selection_criteria(DataMixin, ListView):

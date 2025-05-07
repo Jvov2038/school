@@ -9,6 +9,7 @@ from .fields import WEBPField
 from django_ckeditor_5.fields import CKEditor5Field
 from model_utils import FieldTracker
 from django.utils import timezone
+from userprofile.models import Location, SchoolClass
 
 
 def image_folder(instance, filename):
@@ -61,6 +62,7 @@ class Prog(models.Model):
     prog_statement2 = CKEditor5Field(blank=True, verbose_name="Положение о программе 2 абзац", config_name="extends")
     name_pdffile = models.CharField(max_length=255, verbose_name="Имя PDF файла", null=True, blank=True)
     pdffile = models.FileField(upload_to="pdf/%Y/%m/%d/", verbose_name="PDF", null=True, blank=True)
+    school_class = models.ManyToManyField(SchoolClass, related_name="программа", verbose_name="Учебные классы", blank=True)
     time_create = models.DateTimeField(auto_now_add=True, verbose_name="Дата и время создания")
     time_update = models.DateTimeField(auto_now=True, verbose_name="Дата и время обновления")
     time_start = models.DateTimeField(verbose_name="Дата и время начала программы", null=True, blank=True)
@@ -81,6 +83,14 @@ class Prog(models.Model):
         if not self.slug:
             self.slug = slugify(self.title)
         return super().save(*args, **kwargs)
+        
+    def get_class_range_display(self):
+    	classes = self.school_class.all().order_by("grade")
+    	if not classes:
+    		return ""
+    	first = classes.first().grade
+    	last = classes.last().grade
+    	return f"{first}–{last} классы"
 
     class Meta:
         verbose_name = 'Программа'
@@ -253,6 +263,7 @@ class Contact(models.Model):
     description = models.TextField(verbose_name="Описание", blank=True)
     is_main = models.BooleanField(default=False, verbose_name="Основной контакт")
     order = models.PositiveIntegerField(default=0, verbose_name="Порядок сортировки")
+    location = models.ForeignKey(Location, on_delete=models.PROTECT, related_name="Contact", verbose_name="Местоположение", blank=True, null=True)
     
     class Meta:
         verbose_name = "Контакт"

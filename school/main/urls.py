@@ -34,5 +34,7 @@ urlpatterns = [
     			path('accommodation_conditions/', Accommodation_conditions.as_view(), name='accommodation_conditions'),
     			path('school-autocomplete/', SchoolAutocomplete.as_view(), name='school-autocomplete'),
     			path('search/', school_search, name='school_search'),
+    			path('location_geojson/', location_geojson, name='location_geojson'),
+    			path('geojson/contact/<int:contact_id>/', contact_location_geojson, name='contact_location_geojson'),
 
     ]

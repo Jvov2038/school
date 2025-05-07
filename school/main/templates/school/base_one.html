@@ -8,7 +8,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="description" content="{% block description %}{% endblock %}">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="shortcut icon" type="image/x-icon" href="{% static 'onetech/images/0001.gif' %}">
+<link href="plugins/fontawesome-free-5.0.1/css/fontawesome-all.css" rel="stylesheet" type="text/css">
+<link rel="shortcut icon" type="image/x-icon" href="{% static 'onetech/images/0001.webp' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'onetech/styles/bootstrap4/bootstrap.min.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'onetech/plugins/fontawesome-free-5.0.1/css/fontawesome-all.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'onetech/plugins/OwlCarousel2-2.2.1/owl.carousel.css' %}">
@@ -17,6 +18,16 @@
 <link rel="stylesheet" type="text/css" href="{% static 'onetech/plugins/slick-1.8.0/slick.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'onetech/styles/main_styles.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'onetech/styles/responsive.css' %}">
+
+
+
+
+
+
+
+
+
+
 
 {% block extra_head %}{% endblock %}
 {{ form.media }}
@@ -35,47 +46,49 @@
 
 		<!-- Top Bar -->
 
-		<div class="top_bar">
-			<div class="container">
-				<div class="row">
-					<div class="col d-flex flex-row">
-						<div class="top_bar_contact_item"><div class="top_bar_icon"><img src="{% static 'onetech/images/phone.png' %}" alt=""></div><a href="tel://+79289284479">+79289284479</a></div>
-						<div class="top_bar_contact_item"><div class="top_bar_icon"><img src="{% static 'onetech/images/mail.png' %}" alt=""></div><a href="mailto:vershina@mon.alania.gov.ru">vershina@mon.alania.gov.ru</a></div>
-						<div class="top_bar_content ml-auto">
-							<div class="top_bar_menu">
-								<ul class="standard_dropdown top_bar_dropdown">
-									<li>
-										<a href="#">Интерфейс<i class="fas fa-chevron-down"></i></a>
-										<ul>
-											<li><a href="#">English</a></li>
-											<li><a href="#">Русский</a></li>
-										</ul>
-									</li>
-									<li>
-										<a href="#">Цветовая схема<i class="fas fa-chevron-down"></i></a>
-										<ul>
-											<li><a href="#">Темная</a></li>
-											<li><a href="#">Светлая</a></li>
-											<li><a href="#">Системная</a></li>
-										</ul>
-									</li>
-								</ul>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>		
-		</div>
-		
-        {% if messages %}
-        <div class="alert alert-success">
-        	{% for message in messages %}
-            {{ message }}
-            {% endfor %}
-        </div>
-        {% endif %}
+	<div class="top_bar">
+		<div class="container">
+    		<div class="row">
+    			<div class="col d-flex flex-row">
+        			<div class="top_bar_contact_item">
+        				<div class="top_bar_icon">
+            				<img src="{% static 'onetech/images/phone.png' %}" alt="">
+        				</div>
+        				<a href="tel://+79289284479">+79289284479</a>
+        			</div>
+        			<div class="top_bar_contact_item">
+        				<div class="top_bar_icon">
+            				<img src="{% static 'onetech/images/mail.png' %}" alt="">
+        				</div>
+        				<a href="mailto:vershina@mon.alania.gov.ru">vershina@mon.alania.gov.ru</a>
+        			</div>
+        			<div class="top_bar_content ml-auto">
+        				<div class="top_bar_menu">
+            				<ul class="standard_dropdown top_bar_dropdown">
+            					<li>
+                					<a href="#">Интерфейс<i class="fas fa-chevron-down"></i></a>
+                					<ul>
+                						<li><a href="#">English</a></li>
+                						<li><a href="#">Русский</a></li>
+                					</ul>
+            					</li>
+            					<li>
+                					<a href="#">Цветовая схема<i class="fas fa-chevron-down"></i></a>
+                					<ul>
+                						<li><a href="#" id="dark-theme">Темная</a></li>
+                						<li><a href="#" id="light-theme">Светлая</a></li>
+                						<li><a href="#" id="system-theme">Системная</a></li>
+                					</ul>
+            					</li>
+            				</ul>
+        				</div>
+        			</div>
+    			</div>
+    		</div>
+		</div>		
+	</div>
 
-		<!-- Header Main -->
+				<!-- Header Main -->
 
 		<div class="header_main">
 			<div class="container">
@@ -84,7 +97,13 @@
 					<!-- Logo -->
 					<div class="col-lg-2 col-sm-3 col-3 order-1">
 						<div class="logo_container">
-							<div class="logo"><a href="{% url 'index' %}"><img width="70px" src="{% static 'onetech/images/0001.gif' %}" alt=""></a></div>
+
+           					<div class="logo">
+           						<a href="{% url 'index' %}">
+           							<img id="lazy-gif-logo" src="{% static 'onetech/images/0001.webp' %}" data-gif-src="{% static 'onetech/images/smaller.gif' %}" width="70" height="70" alt="Animation">
+           						</a>
+           					</div>
+							
 						</div>
 					</div>
 
@@ -133,11 +152,14 @@
 				</div>
 			</div>
 		</div>
-		
+
+
 		<!-- Main Navigation -->
 
 		<nav class="main_nav">
 			<div class="container">
+
+
 				<div class="row">
 					<div class="col">
 						
@@ -146,10 +168,12 @@
 							<!-- Categories Menu -->
 
 							<div class="cat_menu_container">
+
 								<div class="cat_menu_title d-flex flex-row align-items-center justify-content-start">
 									<div class="cat_burger"><span></span><span></span><span></span></div>
 									<div class="cat_menu_text">Категории</div>
 								</div>
+
 
 								<ul class="cat_menu">
 									<li><a href="#">Наука <i class="fas fa-chevron-right ml-auto"></i></a></li>
@@ -320,8 +344,71 @@
 
 	</header>
 	
+{% if messages %}
+<div class="container my-3 text-center"> <!-- центрируем весь блок -->
+    {% for message in messages %}
+    <div class="d-inline-block p-3 rounded 
+        {% if 'error' in message.tags %}alert-danger
+        {% elif 'warning' in message.tags %}alert-warning
+        {% elif 'success' in message.tags %}alert-success
+        {% else %}alert-secondary
+        {% endif %}" style="min-width: calc(100% / 3); max-width: 90%;">
 
-	
+        <div class="typewriter">
+            <span>{{ message }}</span><span class="cursor">|</span>
+        </div>
+
+    </div>
+    {% endfor %}
+</div>
+
+<style>
+.typewriter {
+  display: inline-block;
+  font-family: monospace;
+  font-size: 0.8rem;
+  white-space: nowrap;
+}
+
+.typewriter span {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  vertical-align: bottom;
+}
+
+.typewriter .cursor {
+  display: inline-block;
+  width: 0.15em;
+  animation: blink-caret 0.8s step-end infinite;
+  vertical-align: bottom;
+}
+
+/* Анимация набора текста */
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+/* Анимация мигания курсора */
+@keyframes blink-caret {
+  from, to { opacity: 0 }
+  50% { opacity: 1 }
+}
+</style>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const typewriters = document.querySelectorAll('.typewriter span:first-child');
+  typewriters.forEach(span => {
+    const length = span.textContent.length;
+    span.style.animation = `typing 3s steps(${length}) forwards`;
+  });
+});
+</script>
+{% endif %}
+
+
 	{% block content %}
 
 	{% endblock content %}
@@ -458,14 +545,31 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Эт�
 </div>
 
 
+
+ <script>
+   window.addEventListener('load', function() {
+     var img = document.getElementById('lazy-gif-logo');
+     if (!img) return;
+     // Небольшая задержка, чтобы не блокировать основной поток
+     setTimeout(function() {
+       img.src = img.dataset.gifSrc;
+     }, 300);
+   });
+ </script>
+ 
+
+
+
+
+
+ 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/i18n/ru.js"></script>
 <script src="{% static 'admin/js/core.js' %}"></script>
-<script src="{% static 'admin/js/vendor/jquery/jquery.js' %}"></script>
+<!--<script src="{% static 'admin/js/vendor/jquery/jquery.js' %}"></script>-->
 <script src="{% static 'admin/js/admin/RelatedObjectLookup.js' %}"></script>
 <script src="{% static 'admin/js/vendor/select2/select2.full.js' %}"></script>
-<script src="{% static 'admin/js/vendor/select2/select2.full.js' %}"></script>
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/i18n/ru.js"></script>
-
 
 <!--<script src="{% static 'onetech/js/jquery-3.3.1.min.js' %}"></script>-->
 <script src="{% static 'onetech/styles/bootstrap4/popper.js' %}"></script>
@@ -478,12 +582,12 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Эт�
 <script src="{% static 'onetech/plugins/OwlCarousel2-2.2.1/owl.carousel.js' %}"></script>
 <script src="{% static 'onetech/plugins/slick-1.8.0/slick.js' %}"></script>
 <script src="{% static 'onetech/plugins/easing/easing.js' %}"></script>
-<!--<script src="{% static 'onetech/js/custom.js' %}"></script>-->
+<script src="{% static 'onetech/js/custom.js' %}"></script>
 <script src="{% static 'onetech/plugins/parallax-js-master/parallax.min.js' %}"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
-<!--<script src="{% static 'onetech/js/shop_custom.js' %}"></script>-->
+<script src="{% static 'onetech/js/shop_custom.js' %}"></script>
 </body>
 
 </html>
