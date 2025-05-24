@@ -7,3 +7,7 @@ class MainConfig(AppConfig):
     
     def ready(self):
     	import main.signals
+
+
+class CookieConsentConfig(AppConfig):
+    name = 'cookie_consent'

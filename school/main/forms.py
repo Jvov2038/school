@@ -134,15 +134,8 @@ class PersonalAreaForm(forms.ModelForm):
 			}
 		)
 	)
-    school = forms.ModelChoiceField(
-    	queryset=School.objects.all(),
-    	label='Школа',
-    	required=False,
-    	widget=SchoolSelect2Widget(
-    		url='school-autocomplete',
-    		attrs={'data-placeholder': 'Введите название школы...', 'class': 'newsletter_input'}
-    		)
-    	)
+
+
     district = forms.ModelChoiceField(
         queryset=District.objects.all(),
         label='Район',

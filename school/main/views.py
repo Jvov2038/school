@@ -48,6 +48,9 @@ from userprofile.models import District, School, SchoolClass, UserProfile, Locat
 
 
 
+from django.views.decorators.http import require_POST
+
+
 
 from .forms import PersonalAreaForm
 from .models import Documents, Lecture, Prog
@@ -221,10 +224,25 @@ class Index(DataMixin, ListView):
         return post_is_published
 
     @staticmethod
-    def program_last6():
-        program_last6 = Prog.objects.all()
-        return program_last6
+    def program_last9_science():
+        program_last9_science = Prog.objects.filter(cat_id=1)[:9]
+        return program_last9_science
 
+    @staticmethod
+    def program_last9_art():
+        program_last9_art = Prog.objects.filter(cat_id=2)[:9]
+        return program_last9_art
+        
+    @staticmethod
+    def program_last9_sport():
+        program_last9_sport = Prog.objects.filter(cat_id=3)[:9]
+        return program_last9_sport
+        
+    @staticmethod
+    def program_all():
+        program_all = Prog.objects.all()
+        return program_all
+        
 
 class ShowNews(DataMixin, DetailView):
     paginate_by = 1
@@ -361,10 +379,19 @@ class About(DataMixin, ListView):
         program_last6 = Prog.objects.all()
         return program_last6
 
+
+@require_POST
 def add_user_to_prog(request, prog_id):
     prog = get_object_or_404(Prog, id=prog_id)
-    prog.registration.add(request.user)
+
+    if request.user in prog.registration.all():
+        messages.info(request, f'Вы уже зарегистрированы в программе "{prog.title}".')
+    else:
+        prog.registration.add(request.user)
+        messages.success(request, f'Вы успешно зарегистрировались в программу "{prog.title}".')
+
     return redirect('personal_area')
+
 
 
 logger = logging.getLogger(__name__)
@@ -564,9 +591,34 @@ class EducationalProgram(DataMixin, ListView):
         return dict(list(context.items()) + list(c_def.items()))
         
     @staticmethod
+    def post_last3():
+        post_last3 = News.objects.reverse()[:3]
+        return post_last3
+    
+    @staticmethod
     def program_last6():
         program_last6 = Prog.objects.all()
-        return program_last6    
+        return program_last6
+        
+    @staticmethod
+    def program_last9_science():
+        program_last9_science = Prog.objects.filter(cat_id=1)[:9]
+        return program_last9_science
+
+    @staticmethod
+    def program_last9_art():
+        program_last9_art = Prog.objects.filter(cat_id=2)[:9]
+        return program_last9_art
+        
+    @staticmethod
+    def program_last9_sport():
+        program_last9_sport = Prog.objects.filter(cat_id=3)[:9]
+        return program_last9_sport
+        
+    @staticmethod
+    def program_all():
+        program_all = Prog.objects.all()
+        return program_all
         
         
 class Intelligence(DataMixin, ListView):
@@ -866,6 +918,138 @@ class Accommodation_conditions(DataMixin, ListView):
     def accommodation_conditions():
         accommodation_conditions = Documents.objects.filter(section__id=19)
         return accommodation_conditions
+
+    @staticmethod
+    def post_last3():
+        post_last3 = News.objects.reverse()[:3]
+        return post_last3
+
+        
+class Memo_of_Parents(DataMixin, ListView):
+    model = Documents
+    template_name = 'school/memo-of-parents.html'
+    context_object_name = 'docs'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        c_def = self.get_user_context(title="Памятка для родителей")
+        return dict(list(context.items()) + list(c_def.items()))
+
+
+    @staticmethod
+    def memo_of_parents():
+        memo_of_parents = Documents.objects.filter(section__id=21)
+        return memo_of_parents
+
+    @staticmethod
+    def post_last3():
+        post_last3 = News.objects.reverse()[:3]
+        return post_last3
+        
+        
+class Required_Docs(DataMixin, ListView):
+    model = Documents
+    template_name = 'school/required-docs.html'
+    context_object_name = 'docs'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        c_def = self.get_user_context(title="Необходимые документы")
+        return dict(list(context.items()) + list(c_def.items()))
+
+
+    @staticmethod
+    def required_docs():
+        required_docs = Documents.objects.filter(section__id=22)
+        return required_docs
+
+    @staticmethod
+    def post_last3():
+        post_last3 = News.objects.reverse()[:3]
+        return post_last3
+        
+        
+class Faq(DataMixin, ListView):
+    model = Documents
+    template_name = 'school/faq.html'
+    context_object_name = 'docs'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        c_def = self.get_user_context(title="Часто задаваемые вопросы")
+        return dict(list(context.items()) + list(c_def.items()))
+
+
+    @staticmethod
+    def faq():
+        faq = Documents.objects.filter(section__id=23)
+        return faq
+
+    @staticmethod
+    def post_last3():
+        post_last3 = News.objects.reverse()[:3]
+        return post_last3
+        
+        
+class BigChallenges(DataMixin, ListView):
+    model = Documents
+    template_name = 'school/big_challenges.html'
+    context_object_name = 'docs'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        c_def = self.get_user_context(title="Большие вызовы")
+        return dict(list(context.items()) + list(c_def.items()))
+
+
+    @staticmethod
+    def big_challenges():
+        big_challenges = Documents.objects.filter(section__id=24)
+        return big_challenges
+
+    @staticmethod
+    def post_last3():
+        post_last3 = News.objects.reverse()[:3]
+        return post_last3
+        
+
+class SiriusSummer(DataMixin, ListView):
+    model = Documents
+    template_name = 'school/sirius_summer.html'
+    context_object_name = 'docs'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        c_def = self.get_user_context(title="Сириус Лето")
+        return dict(list(context.items()) + list(c_def.items()))
+
+
+    @staticmethod
+    def sirius_summer():
+        sirius_summer = Documents.objects.filter(section__id=25)
+        return sirius_summer
+
+    @staticmethod
+    def post_last3():
+        post_last3 = News.objects.reverse()[:3]
+        return post_last3
+        
+        
+class Vsosh(DataMixin, ListView):
+    model = Documents
+    template_name = 'school/vsosh.html'
+    context_object_name = 'docs'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        c_def = self.get_user_context(title="ВсОШ")
+        return dict(list(context.items()) + list(c_def.items()))
+
+
+    @staticmethod
+    def vsosh():
+        vsosh = Documents.objects.filter(section__id=26)
+        return vsosh
 
     @staticmethod
     def post_last3():

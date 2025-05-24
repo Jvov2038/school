@@ -10,6 +10,7 @@ from django_ckeditor_5.fields import CKEditor5Field
 from model_utils import FieldTracker
 from django.utils import timezone
 from userprofile.models import Location, SchoolClass
+from .mixins import OccupancyMixin
 
 
 def image_folder(instance, filename):
@@ -47,7 +48,7 @@ class CategoryProg(models.Model):
         ordering = ['id']
 
 
-class Prog(models.Model):
+class Prog(OccupancyMixin, models.Model):
     title = models.CharField(max_length=255, verbose_name="Заголовок")
     slug = models.SlugField(max_length=255, unique=True, db_index=True, verbose_name='URL')
     photo = WEBPField(upload_to=image_folder, verbose_name="Фото", null=True, blank=True)
@@ -71,6 +72,7 @@ class Prog(models.Model):
     supervisor = models.ForeignKey(User, on_delete=models.PROTECT, related_name='supervisor', verbose_name="Руководитель",
                                    null=True, blank=True)
     registration = models.ManyToManyField(User, related_name="progs", verbose_name="Участники программы", blank=True)
+    total_places = models.PositiveIntegerField(verbose_name="Всего мест", null=True, blank=True)
     cat = models.ForeignKey(CategoryProg, on_delete=models.PROTECT, verbose_name="Категория", null=True)
 
     def __str__(self):

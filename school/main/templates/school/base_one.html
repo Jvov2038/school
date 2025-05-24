@@ -29,6 +29,7 @@
 
 
 
+
 {% block extra_head %}{% endblock %}
 {{ form.media }}
 
@@ -95,7 +96,7 @@
 				<div class="row">
 
 					<!-- Logo -->
-					<div class="col-lg-2 col-sm-3 col-3 order-1">
+					<div class="col-lg-4 col-sm-3 col-3 order-1">
 						<div class="logo_container">
 
            					<div class="logo">
@@ -106,20 +107,16 @@
 							
 						</div>
 					</div>
+					
 
 					<!-- Search -->
-					<div class="col-lg-6 col-12 order-lg-2 order-3 text-lg-left text-right">
+					<div class="col-lg-4 col-12 order-lg-2 order-3 text-lg-left text-right">
 						<div class="header_search">
 							<div class="header_search_content">
 								<div class="header_search_form_container">
 									<form action="{% url 'search' %}" method="get" class="header_search_form clearfix">
 										<input type="search" name="q" class="header_search_input" placeholder="Поиск по сайту...">
-										<div class="custom_dropdown">
-											<div class="custom_dropdown_list">
-												<span class="custom_dropdown_placeholder clc">Все категории</span>
-												<i class="fas fa-chevron-down"></i>
-											</div>
-										</div>
+
 										<button type="submit" class="header_search_button trans_300" value="Submit"><img src="{% static 'onetech/images/search.png' %}" alt=""></button>
 									</form>
 								</div>
@@ -205,33 +202,33 @@
 											<li><a href="{% url 'selection_criteria' %}">Критерии отбора<i class="fas fa-chevron-down"></i></a></li>
 											<li><a href="{% url 'stay_rules' %}">Правила пребывания<i class="fas fa-chevron-down"></i></a></li>
 											<li><a href="{% url 'accommodation_conditions' %}">Условия размещения<i class="fas fa-chevron-down"></i></a></li>
-											<li><a href="#">Памятка для родителей<i class="fas fa-chevron-down"></i></a></li>
-											<li><a href="#">Необходимые документы<i class="fas fa-chevron-down"></i></a></li>
-											<li><a href="#">Часто задаваемые вопросы<i class="fas fa-chevron-down"></i></a></li>
+											<li><a href="{% url 'memo_of_parents' %}">Памятка для родителей<i class="fas fa-chevron-down"></i></a></li>
+											<li><a href="{% url 'required_docs' %}">Необходимые документы<i class="fas fa-chevron-down"></i></a></li>
+											<li><a href="{% url 'faq' %}">Часто задаваемые вопросы<i class="fas fa-chevron-down"></i></a></li>
 										</ul>
 									</li>
 									<li class="hassubs">
 										<a href="#">Мероприятия<i class="fas fa-chevron-down"></i></a>
 										<ul>
-											<li><a href="shop.html">Большие вызовы<i class="fas fa-chevron-down"></i></a></li>
-											<li><a href="product.html">Сириус лето<i class="fas fa-chevron-down"></i></a></li>
+											<li><a href="{% url 'big_challenges' %}">Большие вызовы<i class="fas fa-chevron-down"></i></a></li>
+											<li><a href="{% url 'sirius_summer' %}">Сириус лето<i class="fas fa-chevron-down"></i></a></li>
 										</ul>
 									</li>
 									<li class="hassubs">
 										<a href="#">Программы<i class="fas fa-chevron-down"></i></a>
 										<ul>
-											<li><a href="shop.html">Наука<i class="fas fa-chevron-down"></i></a></li>
-											<li><a href="product.html">Искусство<i class="fas fa-chevron-down"></i></a></li>
-											<li><a href="blog.html">Спорт<i class="fas fa-chevron-down"></i></a></li>
-											<li><a href="blog_single.html">Модельный центр<i class="fas fa-chevron-down"></i></a></li>
+											<li><a href="{% url 'educational_programs' %}">Наука<i class="fas fa-chevron-down"></i></a></li>
+											<li><a href="{% url 'educational_programs' %}">Искусство<i class="fas fa-chevron-down"></i></a></li>
+											<li><a href="{% url 'educational_programs' %}">Спорт<i class="fas fa-chevron-down"></i></a></li>
+											<li><a href="{% url 'educational_programs' %}">Модельный центр<i class="fas fa-chevron-down"></i></a></li>
 										</ul>
 									</li>
-									<li><a href="contact.html">ВсОШ<i class="fas fa-chevron-down"></i></a></li>
+									<li><a href="{% url 'vsosh' %}">ВсОШ<i class="fas fa-chevron-down"></i></a></li>
 									<li class="hassubs">
 										<a href="#">Контакты<i class="fas fa-chevron-down"></i></a>
 										<ul>
 											<li><a href="{% url 'contacts' %}">Образовательный центр "Вершина"<i class="fas fa-chevron-down"></i></a></li>
-											<li><a href="product.html">Региональный модельный центр<i class="fas fa-chevron-down"></i></a></li>
+											<li><a href="{% url 'contacts' %}">Региональный модельный центр<i class="fas fa-chevron-down"></i></a></li>
 										</ul>
 									</li>
 								</ul>
@@ -285,33 +282,33 @@
 										<li><a href="{% url 'selection_criteria' %}">Критерии отбора<i class="fas fa-chevron-down"></i></a></li>
 										<li><a href="{% url 'stay_rules' %}">Правила пребывания<i class="fas fa-chevron-down"></i></a></li>
 										<li><a href="{% url 'accommodation_conditions' %}">Условия размещения<i class="fas fa-chevron-down"></i></a></li>
-										<li><a href="#">Памятка для родителей<i class="fas fa-chevron-down"></i></a></li>
-										<li><a href="#">Необходимые документы<i class="fas fa-chevron-down"></i></a></li>
-										<li><a href="#">Часто задаваемые вопросы<i class="fas fa-chevron-down"></i></a></li>
+										<li><a href="{% url 'memo_of_parents' %}">Памятка для родителей<i class="fas fa-chevron-down"></i></a></li>
+										<li><a href="{% url 'required_docs' %}">Необходимые документы<i class="fas fa-chevron-down"></i></a></li>
+										<li><a href="{% url 'faq' %}">Часто задаваемые вопросы<i class="fas fa-chevron-down"></i></a></li>
 									</ul>
 								</li>
 								<li class="page_menu_item has-children">
 									<a href="#">Мероприятия<i class="fa fa-angle-down"></i></a>
 									<ul class="page_menu_selection">
-										<li><a href="#">Большие вызовы<i class="fa fa-angle-down"></i></a></li>
-										<li><a href="#">Сириус лето<i class="fa fa-angle-down"></i></a></li>
+										<li><a href="{% url 'big_challenges' %}">Большие вызовы<i class="fa fa-angle-down"></i></a></li>
+										<li><a href="{% url 'sirius_summer' %}">Сириус лето<i class="fa fa-angle-down"></i></a></li>
 									</ul>
 								</li>
 								<li class="page_menu_item has-children">
 									<a href="#">Программы<i class="fa fa-angle-down"></i></a>
 									<ul class="page_menu_selection">
-										<li><a href="#">Наука<i class="fa fa-angle-down"></i></a></li>
-										<li><a href="#">Искусство<i class="fa fa-angle-down"></i></a></li>
-										<li><a href="#">Спорт<i class="fa fa-angle-down"></i></a></li>
-										<li><a href="#">Модельный центр<i class="fa fa-angle-down"></i></a></li>
+										<li><a href="{% url 'educational_programs' %}">Наука<i class="fa fa-angle-down"></i></a></li>
+										<li><a href="{% url 'educational_programs' %}">Искусство<i class="fa fa-angle-down"></i></a></li>
+										<li><a href="{% url 'educational_programs' %}">Спорт<i class="fa fa-angle-down"></i></a></li>
+										<li><a href="{% url 'educational_programs' %}">Модельный центр<i class="fa fa-angle-down"></i></a></li>
 									</ul>
 								</li>
-								<li class="page_menu_item"><a href="blog.html">ВсОШ<i class="fa fa-angle-down"></i></a></li>
+								<li class="page_menu_item"><a href="{% url 'vsosh' %}">ВсОШ<i class="fa fa-angle-down"></i></a></li>
 								<li class="page_menu_item has-children">
 									<a href="#">Контакты<i class="fa fa-angle-down"></i></a>
 									<ul class="page_menu_selection">
 										<li><a href="{% url 'contacts' %}">Образовательный центр "Вершина"<i class="fa fa-angle-down"></i></a></li>
-										<li><a href="#">Региональный модельный центр<i class="fa fa-angle-down"></i></a></li>
+										<li><a href="{% url 'contacts' %}">Региональный модельный центр<i class="fa fa-angle-down"></i></a></li>
 									</ul>
 								</li>
 								<li class="page_menu_item has-children">
@@ -344,71 +341,6 @@
 
 	</header>
 	
-{% if messages %}
-<div class="container my-3 text-center"> <!-- центрируем весь блок -->
-    {% for message in messages %}
-    <div class="d-inline-block p-3 rounded 
-        {% if 'error' in message.tags %}alert-danger
-        {% elif 'warning' in message.tags %}alert-warning
-        {% elif 'success' in message.tags %}alert-success
-        {% else %}alert-secondary
-        {% endif %}" style="min-width: calc(100% / 3); max-width: 90%;">
-
-        <div class="typewriter">
-            <span>{{ message }}</span><span class="cursor">|</span>
-        </div>
-
-    </div>
-    {% endfor %}
-</div>
-
-<style>
-.typewriter {
-  display: inline-block;
-  font-family: monospace;
-  font-size: 0.8rem;
-  white-space: nowrap;
-}
-
-.typewriter span {
-  display: inline-block;
-  overflow: hidden;
-  white-space: nowrap;
-  vertical-align: bottom;
-}
-
-.typewriter .cursor {
-  display: inline-block;
-  width: 0.15em;
-  animation: blink-caret 0.8s step-end infinite;
-  vertical-align: bottom;
-}
-
-/* Анимация набора текста */
-@keyframes typing {
-  from { width: 0 }
-  to { width: 100% }
-}
-
-/* Анимация мигания курсора */
-@keyframes blink-caret {
-  from, to { opacity: 0 }
-  50% { opacity: 1 }
-}
-</style>
-
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-  const typewriters = document.querySelectorAll('.typewriter span:first-child');
-  typewriters.forEach(span => {
-    const length = span.textContent.length;
-    span.style.animation = `typing 3s steps(${length}) forwards`;
-  });
-});
-</script>
-{% endif %}
-
-
 	{% block content %}
 
 	{% endblock content %}
@@ -487,32 +419,34 @@ document.addEventListener("DOMContentLoaded", function() {
 							<li><a href="{% url 'selection_criteria' %}">Критерии отбора</a></li>
 							<li><a href="{% url 'stay_rules' %}">Правила пребывания</a></li>
 							<li><a href="{% url 'accommodation_conditions' %}">Условия размещения</a></li>
-							<li><a href="#">Памятка для родителей</a></li>
-							<li><a href="#">Необходимые документы</a></li>
-							<li><a href="#">Часто задаваемые вопросы</a></li>
-							<li><a href="#">Контакты</a></li>
+							<li><a href="{% url 'memo_of_parents' %}">Памятка для родителей</a></li>
+							<li><a href="{% url 'required_docs' %}">Необходимые документы</a></li>
+							<li><a href="{% url 'faq' %}">Часто задаваемые вопросы</a></li>
 						</ul>
+						<div class="footer_subtitle">Контакты</div>
+							<ul class="footer_list">
+								<li><a href="{% url 'contacts' %}">Вершина</a></li>
+								<li><a href="{% url 'contacts' %}">Модельный центр</a></li>
+							</ul>
+						</div>
 					</div>
-				</div>
-
 				<div class="col-lg-2">
 					<div class="footer_column">
 						<div class="footer_title">Мероприятия</div>
 						<ul class="footer_list">
-							<li><a href="#">Большие вызовы</a></li>
-							<li><a href="#">Сириус лето</a></li>
-							<li><a href="#">ВсОШ</a></li>
+							<li><a href="{% url 'big_challenges' %}">Большие вызовы</a></li>
+							<li><a href="{% url 'sirius_summer' %}">Сириус лето</a></li>
+							<li><a href="{% url 'vsosh' %}">ВсОШ</a></li>
 						</ul>
 						<div class="footer_subtitle">Программы</div>
 							<ul class="footer_list">
-								<li><a href="#">Наука</a></li>
-								<li><a href="#">Искусство</a></li>
-								<li><a href="#">Спорт</a></li>
-								<li><a href="#">Модельный центр</a></li>
+								<li><a href="{% url 'educational_programs' %}">Наука</a></li>
+								<li><a href="{% url 'educational_programs' %}">Искусство</a></li>
+								<li><a href="{% url 'educational_programs' %}">Спорт</a></li>
+								<li><a href="{% url 'educational_programs' %}">Модельный центр</a></li>
 							</ul>
 						</div>
 					</div>
-				</div>
 			</div>
 		</div>
 	</footer>
@@ -525,16 +459,15 @@ document.addEventListener("DOMContentLoaded", function() {
 				<div class="col">
 					
 					<div class="copyright_container d-flex flex-sm-row flex-column align-items-center justify-content-start">
-						<div class="copyright_content"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> Этот сайт был создан <a href="#" target="_blank">White_Cat</a>
-<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+						<div class="copyright_content">
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | Этот сайт был создан <a href="#">White_cat</a>
 </div>
 						<div class="logos ml-sm-auto">
 							<ul class="logos_list">
-								<li><a href="#"><img src="images/logos_1.png" alt=""></a></li>
-								<li><a href="#"><img src="images/logos_2.png" alt=""></a></li>
-								<li><a href="#"><img src="images/logos_3.png" alt=""></a></li>
-								<li><a href="#"><img src="images/logos_4.png" alt=""></a></li>
+								<li><a href="#"><img src="#" alt=""></a></li>
+								<li><a href="#"><img src="#" alt=""></a></li>
+								<li><a href="#"><img src="#" alt=""></a></li>
+								<li><a href="#"><img src="#" alt=""></a></li>
 							</ul>
 						</div>
 					</div>
@@ -588,6 +521,172 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> Эт�
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
 <script src="{% static 'onetech/js/shop_custom.js' %}"></script>
+
+
+{% include 'includes/cookie_notice.html' %}
+
+{% if messages %}
+    <div id="message-banner">
+        {% for message in messages %}
+            <div class="message-card 
+                {% if 'error' in message.tags %}error
+                {% elif 'warning' in message.tags %}warning
+                {% elif 'success' in message.tags %}success
+                {% else %}info
+                {% endif %}">
+                <div class="message-content">
+                    <div class="typewriter">
+                        <span>{{ message }}</span><span class="cursor">|</span>
+                    </div>
+                </div>
+                <button class="close-btn" aria-label="Закрыть">&times;</button>
+            </div>
+        {% endfor %}
+    </div>
+
+    <style>
+        #message-banner {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 9999;
+            max-width: 90%;
+        }
+
+        .message-card {
+            position: relative;
+            padding: 12px 40px 12px 20px;
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+            color: #ffffff;
+            font-size: 14px;
+            min-width: 300px;
+            max-width: 600px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fade-in 0.5s forwards;
+        }
+
+        .message-card.auto-hide {
+            animation: fade-in 0.5s forwards, fade-out 0.5s forwards 5s;
+        }
+
+        .message-card.info { background: rgba(0, 123, 255, 0.85); }
+        .message-card.success { background: rgba(40, 167, 69, 0.85); }
+        .message-card.warning { background: rgba(255, 193, 7, 0.9); color: #222; }
+        .message-card.error { background: rgba(220, 53, 69, 0.85); }
+
+        .message-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 8px;
+            right: 12px;
+            background: transparent;
+            border: none;
+            color: #fff;
+            font-size: 20px;
+            line-height: 1;
+            cursor: pointer;
+            transition: color 0.3s ease, transform 0.2s ease;
+        }
+
+        .close-btn:hover {
+            color: #ddd;
+            transform: scale(1.2);
+        }
+
+        .typewriter {
+            display: inline-block;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        .typewriter span:first-child {
+            display: inline-block;
+            overflow: hidden;
+            white-space: nowrap;
+            border-right: 0.15em solid transparent;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 0.15em;
+            margin-left: 2px;
+            animation: blink-caret 0.8s step-end infinite;
+        }
+
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        @keyframes blink-caret {
+            from, to { opacity: 0 }
+            50% { opacity: 1 }
+        }
+
+        @keyframes fade-in {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fade-out {
+            0% { opacity: 1; transform: translateY(0); }
+            100% { opacity: 0; transform: translateY(10px); }
+        }
+
+        @media (max-width: 600px) {
+            .message-card {
+                min-width: auto;
+                width: 100%;
+                font-size: 13px;
+            }
+        }
+    </style>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const typewriters = document.querySelectorAll('.typewriter span:first-child');
+            typewriters.forEach(span => {
+                const length = span.textContent.length;
+                span.style.animation = `typing ${Math.min(3, length * 0.1)}s steps(${length}) forwards`;
+            });
+
+            const closeButtons = document.querySelectorAll('.close-btn');
+            closeButtons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const card = this.closest('.message-card');
+                    card.style.animation = 'fade-out 0.5s forwards';
+                    setTimeout(() => {
+                        card.remove();
+                    }, 500);
+                });
+            });
+
+            // auto-hide for non-manual close
+            document.querySelectorAll('.message-card').forEach(card => {
+                card.classList.add('auto-hide');
+            });
+        });
+    </script>
+{% endif %}
+
+
+
+
+
+
 </body>
 
 </html>

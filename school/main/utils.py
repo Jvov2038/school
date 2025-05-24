@@ -60,3 +60,4 @@ class DataMixin:
             context['cat_selected'] = 0
         return context
 
+

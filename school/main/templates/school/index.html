@@ -2,12 +2,17 @@
 {% load static %}
 {% load webp %}
 
-{% block description %}{% endblock %}
-{% block title %}{% endblock %}
+{% block description %}Главная страница Образовательной организации{% endblock %}
+{% block title %}Главная страница{% endblock %}
 
 {% block content %}
 <link rel="stylesheet" type="text/css" href="{% static 'onetech/styles/blog_styles.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'onetech/styles/blog_responsive.css' %}">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="{% static 'onetech/styles/custom-carousel.css' %}" rel="stylesheet">
+
+
+
 
 
 <!-- ================ start banner area ================= -->
@@ -35,7 +40,7 @@
 
 		<!-- Characteristics -->
 
-	<div class="characteristics">
+<div class="characteristics">
 		<div class="container">
 			<div class="row">
 
@@ -43,7 +48,7 @@
 				<div class="col-lg-3 col-md-6 char_col">
 					
 					<div class="char_item d-flex flex-row align-items-center justify-content-start">
-						<div class="char_icon"><img style="width: 80px; height:80px;" src="{% static 'onetech/images/science.webp' %}" alt=""></div>
+						<div class="char_icon"><img style="width: 80px; height:80px;" src="{% static 'onetech/images/science.webp' %}" alt="лого Наука"></div>
 						<div class="char_content">
 							<div class="char_title">Наука</div>
 							<div class="char_subtitle"></div>
@@ -55,7 +60,7 @@
 				<div class="col-lg-3 col-md-6 char_col">
 					
 					<div class="char_item d-flex flex-row align-items-center justify-content-start">
-						<div class="char_icon"><img style="width: 80px; height:80px;" src="{% static 'onetech/images/art.webp' %}" alt=""></div>
+						<div class="char_icon"><img style="width: 80px; height:80px;" src="{% static 'onetech/images/art.webp' %}" alt="лого Искусство"></div>
 						<div class="char_content">
 							<div class="char_title">Искусство</div>
 							<div class="char_subtitle"></div>
@@ -67,7 +72,7 @@
 				<div class="col-lg-3 col-md-6 char_col">
 					
 					<div class="char_item d-flex flex-row align-items-center justify-content-start">
-						<div class="char_icon"><img style="width: 80px; height:80px;" src="{% static 'onetech/images/sport.webp' %}" alt=""></div>
+						<div class="char_icon"><img style="width: 80px; height:80px;" src="{% static 'onetech/images/sport.webp' %}" alt="лого Спорт"></div>
 						<div class="char_content">
 							<div class="char_title">Спорт</div>
 							<div class="char_subtitle"></div>
@@ -79,7 +84,7 @@
 				<div class="col-lg-3 col-md-6 char_col">
 					
 					<div class="char_item d-flex flex-row align-items-center justify-content-start">
-						<div class="char_icon"><img style="width: 80px; height:80px;" src="images/char_4.png" alt=""></div>
+						<div class="char_icon"><img style="width: 80px; height:80px;" src="{% static 'onetech/images/logo_center.png' %}" alt="лого Модельный центр"></div>
 						<div class="char_content">
 							<div class="char_title">Модельный центр</div>
 							<div class="char_subtitle"></div>
@@ -90,184 +95,204 @@
 		</div>
 	</div>
 
+
 <div class="deals_featured">
 		<div class="container">
 			<div class="row">
 				<div class="col d-flex flex-lg-row flex-column align-items-center justify-content-start">
-					
-					<!-- Deals -->
-
 					<div class="deals">
-						<div class="deals_title">Образовательные программы</div>
-						<div class="deals_slider_container">
-							
-							<!-- Deals Slider -->
-							<div class="owl-carousel owl-theme deals_slider">
-								
-								<!-- Deals Item -->
-								{% for p in view.program_last6 %}
-								<div class="owl-item deals_item">
-									{% if p.photo %}
-									<div class="deals_image"><img src="{{ p.photo.url }}" alt=""></div>
-									{% else %}
-									<div class="deals_image"><img src="{% static 'onetech/images/deals.png' %}" alt=""></div>
-									{% endif %}
-									<div class="deals_content">
-										<div class="deals_info_line d-flex flex-row justify-content-start">
-											<div class="deals_item_category"><a href="#">{{ p.cat }}</a></div>
-											<div class="deals_item_price_a ml-auto"></div>
-										</div>
-										<div class="deals_info_line d-flex flex-row justify-content-start">
-											<div class="deals_item_name">{{ p.title }}</div>
-											<div class="deals_item_price ml-auto"></div>
-										</div>
-										<div class="available">
-											<div class="available_line d-flex flex-row justify-content-start">
-												<div class="available_title">Количество участников: <span>6</span></div>
-												<div class="sold_title ml-auto">Всего мест: <span>28</span></div>
-											</div>
-											<div class="available_bar"><span style="width:17%"></span></div>
-										</div>
-										<div class="deals_timer d-flex flex-row align-items-center justify-content-start">
-											<div class="deals_timer_title_container">
-												<div class="deals_timer_title">Поторопись</div>
-												<div class="deals_timer_subtitle">Программа закончится:</div>
-											</div>
-											<div class="deals_timer_content ml-auto">
-												<div class="deals_timer_box clearfix" data-target-time="">
-													<div class="deals_timer_unit">
-														<div id="deals_timer1_hr" class="deals_timer_hr"></div>
-														<span>часов</span>
-													</div>
-													<div class="deals_timer_unit">
-														<div id="deals_timer1_min" class="deals_timer_min"></div>
-														<span>мин</span>
-													</div>
-													<div class="deals_timer_unit">
-														<div id="deals_timer1_sec" class="deals_timer_sec"></div>
-														<span>сек</span>
-													</div>
+    					<div class="deals_title">Образовательные программы</div>
+    					<div id="dealsCarousel" class="carousel slide" data-bs-ride="carousel">
+        					<div class="carousel-inner">
+            					{% for p in view.program_all %}
+            					<div class="carousel-item {% if forloop.first %}active{% endif %}">
+                					<div class="deals_item d-flex flex-column align-items-center">
+                    					<div class="deals_image">
+                        					{% if p.photo %}
+                        					<img src="{{ p.photo.url }}" class="d-block w-100" alt="{{ p.title }}">
+                        					{% else %}
+                        					<img src="{% static 'img/no-image.PNG' %}" class="d-block w-100" alt="нет фото">
+                        					{% endif %}
+                    					</div>
+                    					<div class="deals_content">
+                        					<div class="deals_info_line d-flex flex-row justify-content-start">
+                            					<div class="deals_item_category"><a href="#">{{ p.cat }}</a></div>
+                            					<div class="deals_item_price_a ml-auto"></div>
+                        					</div>
+                        					<div class="deals_info_line d-flex flex-row justify-content-start">
+                            					<div class="deals_item_name"><a href="{{ p.get_absolute_url }}">{{ p.title }}</a></div>
+                            					<div class="deals_item_price ml-auto"></div>
+                        					</div>
+                        					<div class="available">
+                            					<div class="available_line d-flex flex-row justify-content-start">
+                                					<div class="available_title">Количество участников: <span>{{ p.registration.count }}</span></div>
+                                					<div class="sold_title ml-auto">Всего мест: <span>{{ p.total_places_display }}</span></div>
+                            					</div>
+                            					<div class="available_bar"><span style="width:{{ p.occupied_percent }}%"></span></div>
+                        					</div>
+                        					<div class="deals_timer d-flex flex-row align-items-center justify-content-start">
+                            					<div class="deals_timer_title_container">
+                                					<div class="deals_timer_title">Поторопись</div>
+                                					<div class="deals_timer_subtitle">Программа закончится:</div>
+                            					</div>
+												<div class="deals_timer_content ml-auto">
+												    <div class="deals_timer_box clearfix" data-target-time="{{ p.time_ending|date:'c' }}">
+												        <div class="deals_timer_unit">
+												            <div class="deals_timer_hr">00</div>
+												            <span>часов</span>
+												        </div>
+												        <div class="deals_timer_unit">
+												            <div class="deals_timer_min">00</div>
+												            <span>мин</span>
+												        </div>
+
+												    </div>
 												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								{% endfor %}
-
-							</div>
-
-						</div>
-
-						<div class="deals_slider_nav_container">
-							<div class="deals_slider_prev deals_slider_nav"><i class="fas fa-chevron-left ml-auto"></i></div>
-							<div class="deals_slider_next deals_slider_nav"><i class="fas fa-chevron-right ml-auto"></i></div>
-						</div>
+                        					</div>
+                    					</div>
+                					</div>
+            					</div>
+            					{% endfor %}
+        					</div>
+        					<button class="carousel-control-prev" type="button" data-bs-target="#dealsCarousel" data-bs-slide="prev">
+            					<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            					<span class="visually-hidden">Previous</span>
+        					</button>
+        					<button class="carousel-control-next" type="button" data-bs-target="#dealsCarousel" data-bs-slide="next">
+            					<span class="carousel-control-next-icon" aria-hidden="true"></span>
+            					<span class="visually-hidden">Next</span>
+        					</button>
+    					</div>
 					</div>
-										<!-- Featured -->
-					<div class="featured">
-						<div class="tabbed_container">
-							<div class="tabs">
-								<ul class="clearfix">
-									<li class="active">Наука</li>
-									<li>Искусство</li>
-									<li>Спорт</li>
-								</ul>
-								<div class="tabs_line"><span></span></div>
-							</div>
 
-							<!-- Product Panel -->
-							<div class="product_panel panel active">
-								<div class="featured_slider slider">
+<div class="featured d-none d-sm-block">
+    <div class="tabbed_container">
+        <ul class="nav nav-tabs clearfix" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="science-tab" data-bs-toggle="tab" data-bs-target="#scienceTab" type="button" role="tab" aria-controls="scienceTab" aria-selected="true">Наука</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="art-tab" data-bs-toggle="tab" data-bs-target="#artTab" type="button" role="tab" aria-controls="artTab" aria-selected="false">Искусство</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="sport-tab" data-bs-toggle="tab" data-bs-target="#sportTab" type="button" role="tab" aria-controls="sportTab" aria-selected="false">Спорт</button>
+            </li>
+        </ul>
 
-									<!-- Slider Item -->
-									{% for p in view.program_last6 %}
-									<div class="featured_slider_item">
-										<div class="border_active"></div>
-										<div class="product_item discount d-flex flex-column align-items-center justify-content-center text-center">
-											{% if p.photo %}
-											<div class="product_image d-flex flex-column align-items-center justify-content-center"><img style="width: 80%;"src="{{ p.photo.url }}" alt=""></div>
-											{% else %}
-											<div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="{% static 'onetech/images/featured_1.png' %}" alt=""></div>
-											{% endif %}
-											<div class="product_content">
-												<div class="product_price discount"><span>{{ p.get_class_range_display }}</span></div>
-												<div class="product_name"><div><a href="{{ p.get_absolute_url }}">{{ p.title }}</a></div></div>
-												<div class="product_extras">
-													<button class="product_cart_button" href="{{ p.get_absolute_url }}">Открыть</button>
-												</div>
-											</div>
-											{% if p.cat.id == 1 %}
-											<div class="product_fav"><img style="width: 36px; height:36px;" src="{% static 'onetech/images/science.webp' %}" alt=""></div>
-											{% elif p.cat.id == 2 %}
-											<div class="product_fav"><img style="width: 36px; height:36px;" src="{% static 'onetech/images/art.webp' %}" alt=""></div>
-											{% elif p.cat.id == 3 %}
-											<div class="product_fav"><img style="width: 36px; height:36px;" src="{% static 'onetech/images/sport.webp' %}" alt=""></div>
-											{% else %}
-											<div class="product_fav"><img style="width: 36px; height:36px;" src="{% static 'onetech/images/sport.webp' %}" alt=""></div>
-											{% endif %}
-										</div>
-									</div>
-									{% endfor %}
-								</div>
-							</div>
+        <div class="tab-content">
 
+            <!-- Наука -->
+            <div class="tab-pane fade show active" id="scienceTab" role="tabpanel" aria-labelledby="science-tab">
+                <div class="row">
+                    {% for p in view.program_last9_science %}
+                    <div class="col-12 col-sm-6 col-md-4 mb-4">
+                        <div class="featured_slider_item">
+                            <div class="border_active"></div>
+                            <div class="product_item discount d-flex flex-column align-items-center justify-content-center text-center">
+                                {% if p.photo %}
+                                <div class="product_image">
+                                    <img style="width: 100%; height:100%;" src="{{ p.photo.url }}" alt="{{ p.title }}" class="img-fluid">
+                                </div>
+                                {% else %}
+                                <div class="product_image">
+                                    <img style="width: 100%; height:100%;" src="{% static 'img/no-image.PNG' %}" alt="нет фото" class="img-fluid">
+                                </div>
+                                {% endif %}
+                                <div class="product_content">
+                                    <div class="product_price discount"><span>{{ p.get_class_range_display }}</span></div>
+                                    <div class="product_name"><a href="{{ p.get_absolute_url }}">{{ p.title }}</a></div>
+                                    <div class="product_extras">
+                                        <a class="product_cart_button" href="{{ p.get_absolute_url }}">Открыть</a>
+                                    </div>
+                                </div>
+                                <div class="product_fav">
+                                    <img style="width: 36px; height:36px;" src="{% static 'onetech/images/science.webp' %}" alt="иконка Наука">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
 
-							<div class="product_panel panel">
-								<div class="featured_slider slider">
+            <!-- Искусство -->
+            <div class="tab-pane fade" id="artTab" role="tabpanel" aria-labelledby="art-tab">
+                <div class="row">
+                    {% for p in view.program_last9_art %}
+                    <div class="col-12 col-sm-6 col-md-4 mb-4">
+                        <div class="featured_slider_item">
+                            <div class="border_active"></div>
+                            <div class="product_item discount d-flex flex-column align-items-center justify-content-center text-center">
+                                {% if p.photo %}
+                                <div class="product_image">
+                                    <img style="width: 100%; height:100%;" src="{{ p.photo.url }}" alt="{{ p.title }}" class="img-fluid">
+                                </div>
+                                {% else %}
+                                <div class="product_image">
+                                    <img style="width: 100%; height:100%;" src="{% static 'img/no-image.PNG' %}" alt="нет фото" class="img-fluid">
+                                </div>
+                                {% endif %}
+                                <div class="product_content">
+                                    <div class="product_price discount"><span>{{ p.get_class_range_display }}</span></div>
+                                    <div class="product_name"><a href="{{ p.get_absolute_url }}">{{ p.title }}</a></div>
+                                    <div class="product_extras">
+                                        <a class="product_cart_button" href="{{ p.get_absolute_url }}">Открыть</a>
+                                    </div>
+                                </div>
+                                <div class="product_fav">
+                                    <img style="width: 36px; height:36px;" src="{% static 'onetech/images/art.webp' %}" alt="иконка Искусство">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
 
-																		<!-- Slider Item -->
-									{% for p in view.program_last6 %}
-									<div class="featured_slider_item">
-										<div class="border_active"></div>
-										<div class="product_item discount d-flex flex-column align-items-center justify-content-center text-center">
-											{% if p.photo %}
-											<div class="product_image d-flex flex-column align-items-center justify-content-center"><img style="width: 80%;"src="{{ p.photo.url }}" alt=""></div>
-											{% else %}
-											<div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="{% static 'onetech/images/featured_1.png' %}" alt=""></div>
-											{% endif %}
-											<div class="product_content">
-												<div class="product_price discount"><span>{{ p.get_class_range_display }}</span></div>
-												<div class="product_name"><div><a href="{{ p.get_absolute_url }}">{{ p.title }}</a></div></div>
-												<div class="product_extras">
-													<button class="product_cart_button" href="{{ p.get_absolute_url }}">Открыть</button>
-												</div>
-											</div>
-											{% if p.cat.id == 1 %}
-											<div class="product_fav"><img style="width: 36px; height:36px;" src="{% static 'onetech/images/science.webp' %}" alt=""></div>
-											{% elif p.cat.id == 2 %}
-											<div class="product_fav"><img style="width: 36px; height:36px;" src="{% static 'onetech/images/art.webp' %}" alt=""></div>
-											{% elif p.cat.id == 3 %}
-											<div class="product_fav"><img style="width: 36px; height:36px;" src="{% static 'onetech/images/sport.webp' %}" alt=""></div>
-											{% else %}
-											<div class="product_fav"><img style="width: 36px; height:36px;" src="{% static 'onetech/images/sport.webp' %}" alt=""></div>
-											{% endif %}
-										</div>
-									</div>
-									{% endfor %}
+            <!-- Спорт -->
+            <div class="tab-pane fade" id="sportTab" role="tabpanel" aria-labelledby="sport-tab">
+                <div class="row">
+                    {% for p in view.program_last9_sport %}
+                    <div class="col-12 col-sm-6 col-md-4 mb-4">
+                        <div class="featured_slider_item">
+                            <div class="border_active"></div>
+                            <div class="product_item discount d-flex flex-column align-items-center justify-content-center text-center">
+                                {% if p.photo %}
+                                <div class="product_image">
+                                    <img style="width: 100%; height:100%;" src="{{ p.photo.url }}" alt="{{ p.title }}" class="img-fluid">
+                                </div>
+                                {% else %}
+                                <div class="product_image">
+                                    <img style="width: 100%; height:100%;" src="{% static 'img/no-image.PNG' %}" alt="нет фото" class="img-fluid">
+                                </div>
+                                {% endif %}
+                                <div class="product_content">
+                                    <div class="product_price discount"><span>{{ p.get_class_range_display }}</span></div>
+                                    <div class="product_name"><a href="{{ p.get_absolute_url }}">{{ p.title }}</a></div>
+                                    <div class="product_extras">
+                                        <a class="product_cart_button" href="{{ p.get_absolute_url }}">Открыть</a>
+                                    </div>
+                                </div>
+                                <div class="product_fav">
+                                    <img style="width: 36px; height:36px;" src="{% static 'onetech/images/sport.webp' %}" alt="иконка Спорт">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
 
-								</div>
-								<div class="featured_slider_dots_cover"></div>
-							</div>
-
-							<!-- Product Panel -->
-
-							<div class="product_panel panel">
-								<div class="featured_slider slider">
-
-
-								</div>
-								<div class="featured_slider_dots_cover"></div>
-							</div>
-
-						</div>
-					</div>
-					
-
+        </div>
+    </div>
+</div>
 
 				</div>
 			</div>
 		</div>
 	</div>
+
+
 
 <!-- Single Blog Post -->
 <div class="single_post">
@@ -455,4 +480,10 @@ particlesJS("particles-js", {
 
 </script>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+
+
+
 {% endblock content %}
+
